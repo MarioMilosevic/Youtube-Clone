@@ -1,7 +1,7 @@
 const Header = () => {
   return (
-    <nav className="flex justify-between text-xl">
-      <div className="flex items-center ">
+    <nav className="flex justify-between text-xl border pb-16">
+      <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-6 h-6"
@@ -16,12 +16,12 @@ const Header = () => {
             d="m102.421 128.06l66.328-38.418l-66.328-38.418z"
           ></path>
         </svg>
-        <span>YouTube</span>
+        <span className="text-2xl">YouTube</span>
       </div>
       <div className="w-[20%] flex relative items-center">
         <input
           type="search"
-          className="w-full rounded-full pl-4 py-1"
+          className="w-full rounded-full text-base pl-4 py-1 text-black"
           placeholder="Search..."
         />
         <svg
