@@ -37,13 +37,12 @@ const Categories = () => {
   return (
     <aside className="pt-12 px-2 flex flex-col justify-center gap-4 border w-[10%]">
       {icons.map((icon, index) => (
-        <button key={index} className="flex items-center gap-4 hover:bg-[#ff0000] hover:rounded-full px-2">
-          <IonIcon
-            icon={icon.icon}
-            color="new"
-            size="large"
-          ></IonIcon>
-          <p>{icon.name}</p>
+        <button
+          key={index}
+          className="flex items-center gap-4 custom hover:bg-[#ff0000] hover:text-white hover:rounded-full px-2"
+        >
+          <IonIcon icon={icon.icon} size="large"></IonIcon>
+          <p className="text-white">{icon.name}</p>
         </button>
       ))}
     </aside>
