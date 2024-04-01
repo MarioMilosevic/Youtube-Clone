@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import Categories from "./components/Categories";
+import Content from "./components/Content";
 function App() {
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -35,6 +36,7 @@ function App() {
       <Header />
       <Wrapper>
         <Categories />
+        <Content/>
       </Wrapper>
     </>
   );

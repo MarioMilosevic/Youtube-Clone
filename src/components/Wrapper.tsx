@@ -5,7 +5,7 @@ type WrapperTypes = {
 };
 
 const Wrapper = ({ children }: WrapperTypes) => {
-  return <div>{children}</div>;
+  return <div className="flex">{children}</div>;
 };
 
 export default Wrapper;
