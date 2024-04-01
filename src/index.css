@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.custom {
+.custom-color {
   color: #ff0000;
 }
 
-.custom:hover {
+.custom-color:hover {
     color:#fff
+}
+
+.custom-white {
+    color: #fff;
 }
