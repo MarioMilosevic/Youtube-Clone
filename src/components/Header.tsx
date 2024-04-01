@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <nav className="flex justify-between text-xl pb-12">
+    <nav className="flex justify-between text-xl pl-4 pb-12">
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

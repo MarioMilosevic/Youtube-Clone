@@ -39,7 +39,7 @@ const Categories = () => {
     "flex items-center gap-3 custom-color text-base hover:bg-[#ff0000] hover:text-white hover:rounded-full px-2";
 
   return (
-    <aside className="pt-16 px-2 flex flex-col justify-center gap-6 w-[10%]">
+    <aside className="pt-16 px-2 flex flex-col gap-6 w-[10%]">
       {icons.map((icon, index) => (
         <button
           key={index}
