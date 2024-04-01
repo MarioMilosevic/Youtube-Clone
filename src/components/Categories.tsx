@@ -1,4 +1,3 @@
-import React from "react";
 import { IonIcon } from "@ionic/react";
 import {
   homeOutline,
@@ -22,7 +21,7 @@ const Categories = () => {
     { icon: homeOutline, name: "Home" },
     { icon: flameOutline, name: "Trending" },
     { icon: codeSlashOutline, name: "Coding" },
-    { icon: logoJavascript, name: "Javascript" },
+    { icon: logoJavascript, name: "JavaScript" },
     { icon: logoReact, name: "ReactJS" },
     { icon: musicalNotesOutline, name: "Music" },
     { icon: schoolOutline, name: "Education" },
@@ -36,10 +35,14 @@ const Categories = () => {
   ];
 
   return (
-    <aside className="pt-12 border w-[10%]">
+    <aside className="pt-12 px-2 flex flex-col justify-center gap-4 border w-[10%]">
       {icons.map((icon, index) => (
-        <button key={index}>
-          <IonIcon icon={icon.icon}></IonIcon>
+        <button key={index} className="flex items-center gap-4 hover:bg-[#ff0000] hover:rounded-full px-2">
+          <IonIcon
+            icon={icon.icon}
+            color="new"
+            size="large"
+          ></IonIcon>
           <p>{icon.name}</p>
         </button>
       ))}
