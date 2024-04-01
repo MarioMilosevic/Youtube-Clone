@@ -39,7 +39,7 @@ const Categories = () => {
     <aside className="pt-12 border w-[10%]">
       {icons.map((icon, index) => (
         <button key={index}>
-          <IonIcon icon={icon.icon}></IonIcon>
+          <IonIcon icon={icon}></IonIcon>
           <p>{icon.name}</p>
         </button>
       ))}
