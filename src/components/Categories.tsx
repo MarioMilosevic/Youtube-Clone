@@ -16,7 +16,11 @@ import {
   diamondOutline,
 } from "ionicons/icons";
 
-const Categories = () => {
+type CategoriesType = {
+  updateSelectedCategory: (category: string) => void;
+}
+
+const Categories = ({updateSelectedCategory}:CategoriesType) => {
   const icons = [
     { isActive: true, icon: homeOutline, name: "Home" },
     { isActive: false, icon: flameOutline, name: "Trending" },
@@ -43,6 +47,7 @@ const Categories = () => {
       {icons.map((icon, index) => (
         <button
           key={index}
+          onClick={() => updateSelectedCategory(icon.name)}
           className={`${baseClass} ${icon.isActive ? isActive : ""}`}
         >
           <IonIcon icon={icon.icon} size="large"></IonIcon>

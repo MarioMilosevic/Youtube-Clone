@@ -7,18 +7,16 @@ const options = {
   },
 };
 
-export const fetchFromAPI = async (url:string) => {
+export const fetchFromAPI = async (url: string) => {
   const fetchUrl = `${baseUrl}/${url}`;
-  
+
   try {
     const response = await fetch(fetchUrl, options);
     const responseData = await response.json();
     console.log(responseData);
-    return responseData; // Return the fetched data
+    return responseData;
   } catch (error) {
     console.error(error);
-    throw error; // Re-throw the error for handling in the calling code
+    throw error;
   }
-
-  
 };

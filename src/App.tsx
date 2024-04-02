@@ -10,13 +10,16 @@ function App() {
   fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
 },[selectedCategory])
   
+  const updateSelectedCategory = (category: string) => {
+    setSelectedCategory(category)
+  }
 
   return (
     <>
       <Header />
       <Wrapper>
-        <Categories />
-        <Content />
+        <Categories updateSelectedCategory={ updateSelectedCategory} />
+        <Content selectedCategory={selectedCategory } />
       </Wrapper>
     </>
   );
