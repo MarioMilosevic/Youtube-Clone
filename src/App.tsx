@@ -4,22 +4,32 @@ import Wrapper from "./components/Wrapper";
 import Categories from "./components/Categories";
 import Content from "./components/Content";
 import { fetchFromAPI } from "./utils/fetch";
+
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState('New')
-  useEffect(() => {
-  fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
-},[selectedCategory])
-  
+  const [selectedCategory, setSelectedCategory] = useState("New");
+
+ useEffect(() => {
+   (async () => {
+     const data = await (async () => {
+       // Your fetchFromAPI function here
+       // Assuming fetchFromAPI is an async function
+       return fetchFromAPI("mrbeast");
+     })();
+     console.log(data);
+   })();
+ }, []);
+
+
   const updateSelectedCategory = (category: string) => {
-    setSelectedCategory(category)
-  }
+    setSelectedCategory(category);
+  };
 
   return (
     <>
       <Header />
       <Wrapper>
-        <Categories updateSelectedCategory={ updateSelectedCategory} />
-        <Content selectedCategory={selectedCategory } />
+        <Categories updateSelectedCategory={updateSelectedCategory} />
+        <Content selectedCategory={selectedCategory} />
       </Wrapper>
     </>
   );

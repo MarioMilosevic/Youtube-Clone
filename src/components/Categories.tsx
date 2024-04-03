@@ -126,7 +126,6 @@ const Categories = ({ updateSelectedCategory }: CategoriesType) => {
         <button
           key={index}
           onClick={() => clickHandler(icon.id, icon.name)}
-          // onClick={() => clickHandler(icon.id)}
           className={`${baseClass} ${icon.isActive ? isActive : ""}`}
         >
           <IonIcon icon={icon.icon} size="large"></IonIcon>
