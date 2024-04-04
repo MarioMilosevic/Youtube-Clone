@@ -121,7 +121,7 @@ const Categories = ({ updateSelectedCategory }: CategoriesType) => {
   
   
   return (
-    <aside className="pt-16 px-2 flex flex-col gap-6 w-[15%]">
+    <aside className="pt-16 px-2 flex flex-col gap-6 w-[200px]">
       {icons.map((icon, index) => (
         <button
           key={index}
