@@ -14,17 +14,11 @@ function App() {
     const fetchData = async () => {
       try {
         const { items } = await fetchFromAPI("mrbeast");
-        items.forEach(({ kind, id:{kind:kind1}, snippet }) => {
-          console.log("kind1",kind1);
-          console.log("id",kind);
-          console.log("snippet",snippet);
-        });
-        console.log(items);
+        setResponseData(items);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -37,7 +31,10 @@ function App() {
       <Header />
       <Wrapper>
         <Categories updateSelectedCategory={updateSelectedCategory} />
-        <Content selectedCategory={selectedCategory} />
+        <Content
+          selectedCategory={selectedCategory}
+          responseData={responseData}
+        />
       </Wrapper>
     </>
   );
