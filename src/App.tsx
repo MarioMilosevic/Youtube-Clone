@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { items } = await fetchFromAPI("mrbeast");
+        const { items } = await fetchFromAPI("kennyjo");
         setResponseData(items);
       } catch (error) {
         console.error("Error fetching data:", error);

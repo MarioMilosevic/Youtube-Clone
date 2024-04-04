@@ -2,7 +2,7 @@ import VideoCard from "./VideoCard";
 import { ResponseType } from "axios";
 type ContentTypes = {
   selectedCategory: string;
-  responseData:ResponseType
+  responseData:ResponseType[]
 };
 
 const Content = ({ selectedCategory, responseData }: ContentTypes) => {
@@ -13,8 +13,8 @@ const Content = ({ selectedCategory, responseData }: ContentTypes) => {
       </p>
       <main className="pt-12 grid gap-4 grid-cols-4">
         {responseData.map(el => {
-          
-          return <VideoCard key={el.id.videoId || el.id.channelId} el={el } />
+          const {id:{videoId, channelId}} = el
+          return <VideoCard key={videoId || channelId} el={el } />
         })}
       
       </main>

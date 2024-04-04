@@ -1,5 +1,3 @@
-import slika from "../assets/probno.jpg";
-
 const VideoCard = ({ el }) => {
   console.log(el);
   const {
@@ -23,7 +21,7 @@ const VideoCard = ({ el }) => {
 
   return (
     <div className="flex flex-col justify-between h-[300px]">
-      <div className="h-[200px] flex justify-center items-center">
+      <div className="h-[200px] flex justify-center items-center cursor-pointer">
         <img src={high.url} alt="Some img alt" className={styling} />
       </div>
       <div className="bg-stone-900 h-[100px] flex flex-col gap-1 p-2">
