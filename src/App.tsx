@@ -4,21 +4,29 @@ import Wrapper from "./components/Wrapper";
 import Categories from "./components/Categories";
 import Content from "./components/Content";
 import { fetchFromAPI } from "./utils/fetch";
+import { ResponseType } from "axios";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("New");
+  const [responseData, setResponseData] = useState<ResponseType[]>([]);
 
- useEffect(() => {
-   (async () => {
-     const data = await (async () => {
-       // Your fetchFromAPI function here
-       // Assuming fetchFromAPI is an async function
-       return fetchFromAPI("mrbeast");
-     })();
-     console.log(data);
-   })();
- }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { items } = await fetchFromAPI("mrbeast");
+        items.forEach(({ kind, id:{kind:kind1}, snippet }) => {
+          console.log("kind1",kind1);
+          console.log("id",kind);
+          console.log("snippet",snippet);
+        });
+        console.log(items);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
 
   const updateSelectedCategory = (category: string) => {
     setSelectedCategory(category);
