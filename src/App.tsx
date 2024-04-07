@@ -9,26 +9,31 @@ import { ResponseType } from "axios";
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("New");
   const [responseData, setResponseData] = useState<ResponseType[]>([]);
+  const [url, setUrl] = useState("kennyjo")
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { items } = await fetchFromAPI("kennyjo");
+        const { items } = await fetchFromAPI(url);
         setResponseData(items);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [url]);
 
   const updateSelectedCategory = (category: string) => {
     setSelectedCategory(category);
   };
 
+  const updateUrl = (input: string) => {
+    setUrl(input)
+  }
+
   return (
     <>
-      <Header />
+      <Header updateUrl={ updateUrl} />
       <Wrapper>
         <Categories updateSelectedCategory={updateSelectedCategory} />
         <Content

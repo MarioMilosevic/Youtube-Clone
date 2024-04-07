@@ -1,4 +1,13 @@
-const Header = () => {
+import { useState } from "react";
+type HeaderTypes = {
+  updateUrl: (input: string) => void;
+}
+
+
+const Header = ({ updateUrl }: HeaderTypes) => {
+  const [search, setSearch] = useState('')
+
+ 
   return (
     <nav className="flex justify-between text-xl pl-4 pb-12">
       <div className="flex items-center">
@@ -18,27 +27,34 @@ const Header = () => {
         </svg>
         <span className="text-2xl">YouTube</span>
       </div>
-      <div className="w-[20%] flex relative items-center">
+
+      <div className="w-[20%] flex relative items-center bg-white rounded-full">
         <input
           type="search"
-          className="w-full rounded-full text-base pl-4 py-1 text-black"
+          className="w-[90%] rounded-full text-base px-4 py-1 text-black outline-none"
           placeholder="Search..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
+        <div className="">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="black"
-          className="w-6 h-6 absolute right-0 top-[50%] translate-x-[-100%] translate-y-[-50%]"
-        >
+          className="w-6 h-6 cursor-pointer"
+          onClick={() => updateUrl(search)}
+          >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
             d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-          />
+            />
         </svg>
+            </div>
       </div>
+
     </nav>
   );
 };
