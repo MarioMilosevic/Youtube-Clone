@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
-import Categories from "./components/Categories";
-import Content from "./components/Content";
-import { fetchFromAPI } from "./utils/fetch";
 import { ResponseType } from "axios";
+import { fetchFromAPI } from "./utils/fetch";
+import YoutubeExplorer from "./YoutubeExplorer";
+import VideoInformation from "./components/VideoInformation";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("New");
   const [responseData, setResponseData] = useState<ResponseType[]>([]);
-  const [url, setUrl] = useState("New")
+  const [url, setUrl] = useState("New");
+  const [isVideoSelected, setIsVideoSelected] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,18 +29,23 @@ function App() {
   };
 
   const updateUrl = (input: string) => {
-    setUrl(input)
-  }
+    setUrl(input);
+  };
 
   return (
     <>
-      <Header updateUrl={ updateUrl} />
+      <Header updateUrl={updateUrl} />
       <Wrapper>
-        <Categories updateSelectedCategory={updateSelectedCategory} updateUrl={updateUrl} />
-        <Content
-          selectedCategory={selectedCategory}
-          responseData={responseData}
-        />
+        {!isVideoSelected && (
+          <>
+            <YoutubeExplorer
+              selectedCategory={selectedCategory}
+              updateSelectedCategory={updateSelectedCategory}
+              updateUrl={updateUrl}
+              responseData={responseData}
+            />
+          </>
+        )}
       </Wrapper>
     </>
   );

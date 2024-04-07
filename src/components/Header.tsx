@@ -1,16 +1,16 @@
 import { useState } from "react";
 type HeaderTypes = {
   updateUrl: (input: string) => void;
-}
-
+};
 
 const Header = ({ updateUrl }: HeaderTypes) => {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
 
-  const searchHandler = () => {
-    updateUrl(search)
-    setSearch('')
-  }
+  const searchHandler = (e: React.MouseEvent<SVGSVGElement, MouseEvent> | React.FormEvent) => {
+    e.preventDefault();
+    updateUrl(search);
+    setSearch("");
+  };
 
   return (
     <nav className="flex justify-between text-xl pl-4 pb-12">
@@ -31,8 +31,10 @@ const Header = ({ updateUrl }: HeaderTypes) => {
         </svg>
         <span className="text-2xl">YouTube</span>
       </div>
-
-      <div className="w-[20%] flex relative items-center bg-white rounded-full">
+      <form
+        className="w-[20%] flex relative items-center bg-white rounded-full"
+        onSubmit={(e) => searchHandler(e)}
+      >
         <input
           type="search"
           className="w-[90%] rounded-full text-base px-4 py-1 text-black outline-none"
@@ -41,24 +43,23 @@ const Header = ({ updateUrl }: HeaderTypes) => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="black"
-          className="w-6 h-6 cursor-pointer"
-          onClick={searchHandler}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="black"
+            className="w-6 h-6 cursor-pointer"
+            onClick={(e) => searchHandler(e)}
           >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
             />
-        </svg>
-            </div>
-      </div>
-
+          </svg>
+        </div>
+      </form>
     </nav>
   );
 };

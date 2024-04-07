@@ -1,5 +1,4 @@
 const VideoCard = ({ el }) => {
-  // console.log(el);
   const currentDate = new Date();
   const {
     id: { kind: kindID, channelId },
@@ -48,7 +47,7 @@ const VideoCard = ({ el }) => {
       <div className="h-[200px] flex justify-center items-center cursor-pointer">
         <img src={high.url} alt="Some img alt" className={styling} />
       </div>
-      <div className="bg-stone-900 h-[120px] flex flex-col gap-1 p-2">
+      <div className="bg-stone-900 h-[150px] flex flex-col gap-1 p-2 justify-center gap-2">
         <h2>{title}</h2>
         <h3 className="text-stone-400">{channelTitle}</h3>
         <h4>{formatTimeDifference(currentDate, publishedDate)}</h4>
