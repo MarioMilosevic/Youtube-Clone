@@ -7,7 +7,11 @@ type HeaderTypes = {
 const Header = ({ updateUrl }: HeaderTypes) => {
   const [search, setSearch] = useState('')
 
- 
+  const searchHandler = () => {
+    updateUrl(search)
+    setSearch('')
+  }
+
   return (
     <nav className="flex justify-between text-xl pl-4 pb-12">
       <div className="flex items-center">
@@ -36,7 +40,7 @@ const Header = ({ updateUrl }: HeaderTypes) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <div className="">
+        <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -44,7 +48,7 @@ const Header = ({ updateUrl }: HeaderTypes) => {
           strokeWidth={1.5}
           stroke="black"
           className="w-6 h-6 cursor-pointer"
-          onClick={() => updateUrl(search)}
+          onClick={searchHandler}
           >
           <path
             strokeLinecap="round"

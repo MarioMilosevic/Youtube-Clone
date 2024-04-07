@@ -9,7 +9,7 @@ import { ResponseType } from "axios";
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("New");
   const [responseData, setResponseData] = useState<ResponseType[]>([]);
-  const [url, setUrl] = useState("kennyjo")
+  const [url, setUrl] = useState("New")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +35,7 @@ function App() {
     <>
       <Header updateUrl={ updateUrl} />
       <Wrapper>
-        <Categories updateSelectedCategory={updateSelectedCategory} />
+        <Categories updateSelectedCategory={updateSelectedCategory} updateUrl={updateUrl} />
         <Content
           selectedCategory={selectedCategory}
           responseData={responseData}

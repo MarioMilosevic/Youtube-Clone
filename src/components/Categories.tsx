@@ -19,93 +19,108 @@ import { useState } from "react";
 
 type CategoriesType = {
   updateSelectedCategory: (category: string) => void;
+  updateUrl: (input: string) => void;
 };
 
-const Categories = ({ updateSelectedCategory }: CategoriesType) => {
+const Categories = ({ updateSelectedCategory, updateUrl }: CategoriesType) => {
   const [icons,setIcons] = useState([
     {
       id: crypto.randomUUID(),
       isActive: true,
       icon: homeOutline,
       name: "Home",
+      value:"New"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: flameOutline,
       name: "Trending",
+      value: "Trending",
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: codeSlashOutline,
       name: "Coding",
+      value: "Coding",
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: logoJavascript,
       name: "JavaScript",
+      value: "JavaScript",
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: logoReact,
       name: "ReactJS",
+      value: "ReactJS",
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: musicalNotesOutline,
       name: "Music",
+      value:"Music"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: schoolOutline,
       name: "Education",
+      value:"Education"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: discOutline,
       name: "Podcast",
+      value:"Podcast"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: filmOutline,
       name: "Movie",
+      value:"Movie"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: gameControllerOutline,
       name: "Gaming",
+      value:"Gaming"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: pulseOutline,
       name: "Live",
+      value:"Live"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: footballOutline,
       name: "Sport",
+      value:"Sport"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: sparklesOutline,
       name: "Fashion",
+      value:"Fashion"
     },
     {
       id: crypto.randomUUID(),
       isActive: false,
       icon: diamondOutline,
       name: "Beauty",
+      value:"Beauty"
     },
   ]);
 
@@ -117,6 +132,7 @@ const Categories = ({ updateSelectedCategory }: CategoriesType) => {
     const updatedIcons = icons.map(icon => icon.id === id ? { ...icon, isActive: true } : { ...icon, isActive: false })
     setIcons(updatedIcons)
     updateSelectedCategory(name)
+    updateUrl(name)
     }
   
   
