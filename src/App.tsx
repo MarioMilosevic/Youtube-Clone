@@ -11,7 +11,7 @@ function App() {
   const [responseData, setResponseData] = useState<ResponseType[]>([]);
   const [url, setUrl] = useState("New");
   const [isVideoSelected, setIsVideoSelected] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState<ResponseType>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +37,10 @@ function App() {
     setUrl(input);
   };
 
+  const selectVideo = () => {
+    setIsVideoSelected(true)
+  }
+
   return (
     <>
       <Header updateUrl={updateUrl} />
@@ -45,14 +49,15 @@ function App() {
           <VideoInformation
             responseData={responseData}
             selectedVideo={selectedVideo}
-          />
-        ) : (
-          <YoutubeExplorer
+            />
+          ) : (
+            <YoutubeExplorer
+            selectVideo={selectVideo}
+            updateSelectedVideo={updateSelectedVideo}
             selectedCategory={selectedCategory}
             updateSelectedCategory={updateSelectedCategory}
             updateUrl={updateUrl}
             responseData={responseData}
-            updateSelectedVideo={updateSelectedVideo}
           />
         )}
       </Wrapper>

@@ -2,12 +2,14 @@ import { ResponseType } from "axios";
 type VideoCardTypes = {
   updateSelectedVideo: (id: string) => void;
   responseData: ResponseType[];
+  selectVideo: () => void;
 };
 
 const VideoCard = ({
   el,
   updateSelectedVideo,
   responseData,
+  selectVideo,
 }: VideoCardTypes) => {
   const currentDate = new Date();
   const {
@@ -31,14 +33,12 @@ const VideoCard = ({
       : "w-full h-full";
   const publishedDate = new Date(publishTime.substring(0, 10));
 
-  const proba = (id: string) => {
-    // updateSelectedVideo(id)
+  const videoHandler = (id: string) => {
     const clickedVideo = responseData.find(
       (result) => result.id.videoId === id
     );
-    console.log(id);
-    console.log(clickedVideo);
-    // responseData.find(el => el.id === id)
+    updateSelectedVideo(clickedVideo);
+    selectVideo();
   };
 
   function formatTimeDifference(curDate, pubDate) {
@@ -65,7 +65,7 @@ const VideoCard = ({
   return (
     <div
       className="flex flex-col cursor-pointer"
-      onClick={() => proba(videoId)}
+      onClick={() => videoHandler(videoId)}
     >
       <div className="h-[200px] flex justify-center items-center ">
         <img src={high.url} alt="Some img alt" className={styling} />

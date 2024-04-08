@@ -8,6 +8,7 @@ type YoutubeExplorerTypes = {
   selectedCategory: string;
   responseData: ResponseType[];
   updateSelectedVideo: (id: string) => void;
+  selectVideo: () => void;
 };
 
 const YoutubeExplorer = ({
@@ -15,7 +16,8 @@ const YoutubeExplorer = ({
   updateUrl,
   selectedCategory,
   responseData,
-  updateSelectedVideo
+  updateSelectedVideo,
+  selectVideo
 }: YoutubeExplorerTypes) => {
   console.log(responseData)
   return (
@@ -24,7 +26,7 @@ const YoutubeExplorer = ({
         updateSelectedCategory={updateSelectedCategory}
         updateUrl={updateUrl}
       />
-      <Videos selectedCategory={selectedCategory} responseData={responseData} updateSelectedVideo={updateSelectedVideo } />
+      <Videos selectedCategory={selectedCategory} responseData={responseData} updateSelectedVideo={updateSelectedVideo} selectVideo={ selectVideo} />
     </>
   );
 };
