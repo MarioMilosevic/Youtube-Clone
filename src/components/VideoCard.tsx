@@ -1,7 +1,17 @@
-const VideoCard = ({ el }) => {
+import { ResponseType } from "axios";
+type VideoCardTypes = {
+  updateSelectedVideo: (id: string) => void;
+  responseData: ResponseType[];
+};
+
+const VideoCard = ({
+  el,
+  updateSelectedVideo,
+  responseData,
+}: VideoCardTypes) => {
   const currentDate = new Date();
   const {
-    id: { kind: kindID, channelId },
+    id: { kind: kindID, channelId, videoId },
     kind,
     snippet: {
       publishedAt,
@@ -12,6 +22,7 @@ const VideoCard = ({ el }) => {
       liveBroadcastContent,
       publishTime,
       thumbnails: { default: defaultThumbnail, high, medium },
+      // TREBAM DA U VIDEOINFORMATION UHVATIM OVE STVARI IZ RESPONSEDATA I DA IH PROSLIJEDIM DJE TREBA, POSALJEM NOVI FETCH ILI 2 FETCHA NZM, UZMEM PODATKE I PROSLIJEDIM IH DJE TREBA...
     },
   } = el;
   const styling =
@@ -20,10 +31,19 @@ const VideoCard = ({ el }) => {
       : "w-full h-full";
   const publishedDate = new Date(publishTime.substring(0, 10));
 
+  const proba = (id: string) => {
+    // updateSelectedVideo(id)
+    const clickedVideo = responseData.find(
+      (result) => result.id.videoId === id
+    );
+    console.log(id);
+    console.log(clickedVideo);
+    // responseData.find(el => el.id === id)
+  };
+
   function formatTimeDifference(curDate, pubDate) {
     const timeDifference = curDate.getTime() - pubDate.getTime();
     const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
     if (daysDifference === 0) {
       return "today";
     } else if (daysDifference === 1) {
@@ -43,12 +63,15 @@ const VideoCard = ({ el }) => {
   }
 
   return (
-    <div className="flex flex-col justify-between ">
-      <div className="h-[200px] flex justify-center items-center cursor-pointer">
+    <div
+      className="flex flex-col cursor-pointer"
+      onClick={() => proba(videoId)}
+    >
+      <div className="h-[200px] flex justify-center items-center ">
         <img src={high.url} alt="Some img alt" className={styling} />
       </div>
-      <div className="bg-stone-900 h-[150px] flex flex-col gap-1 p-2 justify-center gap-2">
-        <h2>{title}</h2>
+      <div className="bg-stone-900 h-[150px] flex flex-col p-2 justify-center gap-2">
+        <h2 dangerouslySetInnerHTML={{ __html: title }}></h2>
         <h3 className="text-stone-400">{channelTitle}</h3>
         <h4>{formatTimeDifference(currentDate, publishedDate)}</h4>
       </div>

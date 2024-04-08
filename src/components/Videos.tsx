@@ -3,9 +3,10 @@ import { ResponseType } from "axios";
 type ContentTypes = {
   selectedCategory: string;
   responseData: ResponseType[];
+  updateSelectedVideo:(id:string) => void  
 };
 
-const Content = ({ selectedCategory, responseData }: ContentTypes) => {
+const Content = ({ selectedCategory, responseData, updateSelectedVideo }: ContentTypes) => {
   return (
     <div className=" flex flex-col flex-1 pl-2">
       <p className="text-3xl font-semibold">
@@ -16,7 +17,7 @@ const Content = ({ selectedCategory, responseData }: ContentTypes) => {
           const {
             id: { videoId, channelId },
           } = el;
-          return <VideoCard key={videoId || channelId} el={el} />;
+          return <VideoCard key={videoId || channelId} el={el} responseData={responseData} updateSelectedVideo={ updateSelectedVideo} />;
         })}
       </main>
     </div>
