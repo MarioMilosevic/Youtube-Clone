@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ResponseType } from "axios";
-import { fetchFromAPI } from "./utils/fetch";
+import { fetchVideosList } from "./utils/fetch";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import YoutubeExplorer from "./YoutubeExplorer";
@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { items } = await fetchFromAPI(url);
+        const { items } = await fetchVideosList(url);
         setResponseData(items);
       } catch (error) {
         console.error("Error fetching data:", error);

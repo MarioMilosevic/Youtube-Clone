@@ -1,4 +1,7 @@
+import React, { useEffect, useState } from "react";
 import { ResponseType } from "axios";
+import ReactPlayer from "react-player/youtube";
+import { fetchVideoComments, fetchVideoDetails } from "../utils/fetch";
 
 type VideoInformationTypes = {
   responseData: ResponseType[];
@@ -9,19 +12,35 @@ const VideoInformation = ({
   responseData,
   selectedVideo,
 }: VideoInformationTypes) => {
+  const [mario, setMario] = useState()
+
   console.log(responseData);
   console.log(selectedVideo);
   const {
-    snippet: {
+    id: { videoId},snippet: {
       title,
       thumbnails: { high },
     },
   } = selectedVideo;
-  console.log(high.url)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {items} = await fetchVideoDetails(videoId)
+        // setMario(response)
+        console.log("mario",mario)
+      } catch (error) {
+        console.error("Error fetching data", error)
+      }
+    }
+    fetchData()
+  }, [])
+// iskoristit VideoCard sa glavni video i ostale sve videee a za kanal napravit posebnu komponentu
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full ">
         <div className="border">
+          {/* <ReactPlayer url={high.url}/> */}
           <img
             src={high.url}
             alt="youtube picture"
