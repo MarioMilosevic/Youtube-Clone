@@ -73,10 +73,10 @@ const VideoInformation = ({
             className="w-full h-[700px]"
           />
         </div> */}
-        <h2
+        { /* POGLEDAT KASNIJE !!!!!!!!!!!!!!!!!!!!!!! <h2
           dangerouslySetInnerHTML={{ __html: title }}
           className="text-lg py-1"
-        ></h2>
+        ></h2> */}
       </main>
       <aside className="w-[20%] bg-blue-500">Mario</aside>
     </div>
