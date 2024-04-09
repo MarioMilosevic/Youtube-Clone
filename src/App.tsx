@@ -47,7 +47,7 @@ function App() {
 
   return (
     <>
-      <Header updateUrl={updateUrl} />
+      <Header updateUrl={updateUrl} videoNotSelected={ videoNotSelected} />
       <Wrapper>
         {isVideoSelected ? (
           <VideoInformation

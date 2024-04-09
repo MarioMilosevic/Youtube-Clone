@@ -1,9 +1,10 @@
 import { useState } from "react";
 type HeaderTypes = {
   updateUrl: (input: string) => void;
+  videoNotSelected: () => void;
 };
 
-const Header = ({ updateUrl }: HeaderTypes) => {
+const Header = ({ updateUrl, videoNotSelected }: HeaderTypes) => {
   const [search, setSearch] = useState("");
 
   const searchHandler = (e: React.MouseEvent<SVGSVGElement, MouseEvent> | React.FormEvent) => {
@@ -12,9 +13,15 @@ const Header = ({ updateUrl }: HeaderTypes) => {
     setSearch("");
   };
 
+  const goToYoutubeExplorer = () => {
+    updateUrl("New")
+    videoNotSelected()
+  }
+
+
   return (
     <nav className="flex justify-between text-xl pl-4 pb-12">
-      <div className="flex items-center">
+      <div className="flex items-center cursor-pointer" onClick={goToYoutubeExplorer}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-6 h-6"

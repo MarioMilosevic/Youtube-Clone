@@ -4,6 +4,7 @@ import { SlLike, SlDislike } from "react-icons/sl";
 import { FaShare } from "react-icons/fa";
 import { BsDownload } from "react-icons/bs";
 import { formatTimeDifference } from "../utils/HelperFunctions";
+import { PiShare, PiShareFatLight } from "react-icons/pi";
 type VideoCardTypes = {
   updateSelectedVideo: (id: string) => void;
   responseData: ResponseType[];
@@ -39,6 +40,10 @@ const VideoCard = ({
 }: VideoCardTypes) => {
   // const [isSelected, setIsSelected] = useState(false);
   const currentDate = new Date();
+
+  const views:string = parseInt(viewCount).toLocaleString()
+  const likes:string = parseInt(likeCount).toLocaleString()
+
 
   const styling =
     kind === "youtube#channel"
@@ -85,16 +90,16 @@ const VideoCard = ({
               Live: Solar eclipse in New York state - Full coverage
             </p>
             <div className="flex justify-between items-center">
-              <span className="text-lg">2,347 views</span>
+              <span className="text-lg">{views } views</span>
               <div className="flex gap-4 text-lg">
                 <div className="flex gap-2 items-center">
                   <SlLike className="cursor-pointer" />
-                  <span>1,099</span>
+                  <span>{likes }</span>
                   <SlDislike className="cursor-pointer" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <FaShare className="cursor-pointer" />
-                  <span>Share</span>
+                  <PiShareFatLight className="cursor-pointer" />
+                  <span className="uppercase">Share</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <BsDownload className="cursor-pointer" />
