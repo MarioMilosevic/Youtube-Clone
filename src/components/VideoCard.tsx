@@ -82,12 +82,11 @@ const VideoCard = ({
 
       {isVideoSelected && (
         <div className="flex flex-col">
-          <div className="h-[1000] cursor-pointer">
+          <div className="cursor-pointer">
             <img src={url} alt="Some img alt" className={styling} />
           </div>
           <div className="bg-black">
-            <p className="text-xl pb-2">
-              Live: Solar eclipse in New York state - Full coverage
+            <p dangerouslySetInnerHTML={{__html:title}} className="text-xl pb-2">
             </p>
             <div className="flex justify-between items-center">
               <span className="text-lg">{views } views</span>

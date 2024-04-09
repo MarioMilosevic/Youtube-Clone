@@ -15,7 +15,6 @@ const Content = ({
   videoSelected,
   isVideoSelected
 }: ContentTypes) => {
-  console.log(responseData);
   return (
     <div className="flex flex-col flex-1 pl-2">
       <p className="text-3xl font-semibold">
