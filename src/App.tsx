@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { ResponseType } from "axios";
 import { fetchVideosList } from "./utils/fetch";
 import Header from "./components/Header";
@@ -29,7 +29,7 @@ function App() {
     setSelectedCategory(category);
   };
 
-  const updateSelectedVideo = (id: string) => {
+  const updateSelectedVideo = (id: SetStateAction<ResponseType>) => {
     setSelectedVideo(id);
   };
 
@@ -37,8 +37,12 @@ function App() {
     setUrl(input);
   };
 
-  const selectVideo = () => {
+  const videoSelected = () => {
     setIsVideoSelected(true)
+  }
+
+  const videoNotSelected = () => {
+    setIsVideoSelected(false)
   }
 
   return (
@@ -49,15 +53,17 @@ function App() {
           <VideoInformation
             responseData={responseData}
             selectedVideo={selectedVideo}
+            isVideoSelected={isVideoSelected}
             />
           ) : (
             <YoutubeExplorer
-            selectVideo={selectVideo}
+            videoSelected={videoSelected}
             updateSelectedVideo={updateSelectedVideo}
             selectedCategory={selectedCategory}
             updateSelectedCategory={updateSelectedCategory}
             updateUrl={updateUrl}
             responseData={responseData}
+            isVideoSelected={isVideoSelected}
           />
         )}
       </Wrapper>

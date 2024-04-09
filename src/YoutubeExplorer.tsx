@@ -8,7 +8,8 @@ type YoutubeExplorerTypes = {
   selectedCategory: string;
   responseData: ResponseType[];
   updateSelectedVideo: (id: string) => void;
-  selectVideo: () => void;
+  videoSelected: () => void;
+  isVideoSelected:boolean
 };
 
 const YoutubeExplorer = ({
@@ -17,16 +18,22 @@ const YoutubeExplorer = ({
   selectedCategory,
   responseData,
   updateSelectedVideo,
-  selectVideo
+  videoSelected,
+  isVideoSelected
 }: YoutubeExplorerTypes) => {
-  console.log(responseData)
   return (
     <>
       <Categories
         updateSelectedCategory={updateSelectedCategory}
         updateUrl={updateUrl}
       />
-      <Videos selectedCategory={selectedCategory} responseData={responseData} updateSelectedVideo={updateSelectedVideo} selectVideo={ selectVideo} />
+      <Videos
+        selectedCategory={selectedCategory}
+        responseData={responseData}
+        updateSelectedVideo={updateSelectedVideo}
+        videoSelected={videoSelected}
+        isVideoSelected={isVideoSelected}
+      />
     </>
   );
 };

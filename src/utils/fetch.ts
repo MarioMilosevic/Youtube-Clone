@@ -40,6 +40,7 @@ export const fetchVideoComments = async (idVideo:string) => {
   try {
     const response = await axios.request(options);
     console.log(response.data);
+    return response.data
   } catch (error) {
     console.error(error);
   }
@@ -62,6 +63,7 @@ export const fetchVideoDetails = async (idVideo: string) => {
   try {
     const response = await axios.request(options);
     console.log(response.data);
+    return response.data
   } catch (error) {
     console.error(error);
   }
