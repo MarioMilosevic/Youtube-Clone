@@ -41,7 +41,8 @@ const Comment = ({
           <span>{authorDisplayName}</span>
           <span>{timeDifference}</span>
         </div>
-        <p className="text-base">{textDisplay}</p>
+        <p className="text-base" dangerouslySetInnerHTML={{ __html: textDisplay }}>
+        </p>
       </div>
     </article>
   );

@@ -40,19 +40,14 @@ const VideoCard = ({
   isVideoSelected,
   videoSelected,
 }: VideoCardTypes) => {
-  // const [isSelected, setIsSelected] = useState(false);
-
-  const views:string = parseInt(viewCount).toLocaleString()
-  const likes:string = parseInt(likeCount).toLocaleString()
-
+  const views: string = parseInt(viewCount).toLocaleString();
+  const likes: string = parseInt(likeCount).toLocaleString();
 
   const styling =
     kind === "youtube#channel"
       ? "w-40 h-40 rounded-full flex items-center justify-center"
       : "w-full h-full";
-  // ISTA STVAR SAMO SAM NAPRAVIO FUNKCIJU
-  // const publishedDate = new Date(publishTime?.substring(0, 10));
-  const publishedDate = generatePublishedDate(publishTime)
+  const publishedDate = generatePublishedDate(publishTime);
 
   const timeDifference = formatTimeDifference(currentDate, publishedDate);
 
@@ -88,14 +83,16 @@ const VideoCard = ({
             <img src={url} alt="Some img alt" className={styling} />
           </div>
           <div className="bg-black">
-            <p dangerouslySetInnerHTML={{__html:title}} className="text-xl pb-2">
-            </p>
+            <p
+              dangerouslySetInnerHTML={{ __html: title }}
+              className="text-xl pb-2"
+            ></p>
             <div className="flex justify-between items-center">
-              <span className="text-lg">{views } views</span>
+              <span className="text-lg">{views} views</span>
               <div className="flex gap-4 text-lg">
                 <div className="flex gap-2 items-center">
                   <SlLike className="cursor-pointer" />
-                  <span>{likes }</span>
+                  <span>{likes}</span>
                   <SlDislike className="cursor-pointer" />
                 </div>
                 <div className="flex items-center gap-2">

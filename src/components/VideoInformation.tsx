@@ -3,7 +3,7 @@ import { ResponseType } from "axios";
 import VideoCard from "./VideoCard";
 import ReactPlayer from "react-player/youtube";
 import Comment from "./Comment";
-import { fetchVideoComments, fetchVideoDetails } from "../utils/fetch";
+import { fetchVideoComments, fetchVideoDetails, fetchSuggestedVideos } from "../utils/fetch";
 import Loading from "./Loading";
 type VideoInformationTypes = {
   responseData: ResponseType[];
@@ -12,18 +12,14 @@ type VideoInformationTypes = {
 };
 
 const VideoInformation = ({
-  responseData,
   selectedVideo,
   isVideoSelected,
 }: VideoInformationTypes) => {
   const [videoDetails, setVideoDetails] = useState();
   const [videoComments, setVideoComments] = useState();
+  const [suggestedVideos, setSuggestedVideos] = useState();
   const {
     id: { videoId },
-    snippet: {
-      title,
-      thumbnails: { high },
-    },
   } = selectedVideo;
 
   useEffect(() => {
@@ -51,26 +47,35 @@ const VideoInformation = ({
     fetchData();
   }, [videoId]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchSuggestedVideos(videoId)
+        setSuggestedVideos(response)
+      } catch (error) {
+        console.error("Errof fetching data", error)
+      }
+    }
+    fetchData()
+  }, [videoId])
+
   if (!videoDetails || !videoComments) {
     return <Loading />;
   }
+
+  console.log("suggestedddddddddd",suggestedVideos)
   const { items: videoItems } = videoDetails || {};
   const [
     {
-      kind,
-      id,
       snippet: {
         thumbnails: {
           high: { url },
         },
         title: videoTitle,
       },
-      contentDetails,
-      statistics: { commentCount, favoriteCount, likeCount, viewCount },
+      statistics: { likeCount, viewCount },
     },
-    // ] = items ? [items[0]] : [{}];
   ] = videoItems;
-  console.log(videoComments);
 
   const { items: videoCommentItems } = videoComments;
 
@@ -88,26 +93,13 @@ const VideoInformation = ({
           const {
             id,
             snippet: {
-              canReply,
-              channelId,
-              isPublic,
               topLevelComment: {
                 id: commentId,
-                kind,
                 snippet: {
-                  authorChannelId: { value },
-                  authorChannelUrl,
                   authorDisplayName,
                   authorProfileImageUrl,
-                  canRate,
-                  channelId: commentChannelID,
-                  likeCount,
                   publishedAt,
                   textDisplay,
-                  textOriginal,
-                  updatedAt,
-                  videoId,
-                  viewerRating,
                 },
               },
             },

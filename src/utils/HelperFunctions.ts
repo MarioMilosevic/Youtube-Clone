@@ -1,4 +1,9 @@
-export function formatTimeDifference(curDate, pubDate) {
+type formatTimeDifferenceTypes = string;
+
+export function formatTimeDifference(
+  curDate: Date,
+  pubDate: Date
+): formatTimeDifferenceTypes {
   const timeDifference = curDate.getTime() - pubDate.getTime();
   const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
@@ -35,7 +40,7 @@ export function formatTimeDifference(curDate, pubDate) {
 }
 export const currentDate = new Date();
 
-export const generatePublishedDate = (publishTime:string) => {
+export const generatePublishedDate = (publishTime: string) => {
   const publishedDate = new Date(publishTime?.substring(0, 10));
   return publishedDate;
 };
