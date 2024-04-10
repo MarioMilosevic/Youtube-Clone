@@ -17,7 +17,7 @@ const VideoInformation = ({
   isVideoSelected,
 }: VideoInformationTypes) => {
   const [videoDetails, setVideoDetails] = useState();
-  const [videoComments,setVideoComments] = useState()
+  const [videoComments, setVideoComments] = useState();
   const {
     id: { videoId },
     snippet: {
@@ -38,23 +38,23 @@ const VideoInformation = ({
     };
     fetchData();
   }, [videoId]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchVideoComments(videoId)
-        setVideoComments(response)
+        const response = await fetchVideoComments(videoId);
+        setVideoComments(response);
       } catch (error) {
         console.error("Error fetching data", error);
       }
-    }
-    fetchData()
-  }, [videoId])
+    };
+    fetchData();
+  }, [videoId]);
 
   if (!videoDetails || !videoComments) {
     return <Loading />;
   }
-  const { items } = videoDetails || {};
+  const { items: videoItems } = videoDetails || {};
   const [
     {
       kind,
@@ -69,12 +69,10 @@ const VideoInformation = ({
       statistics: { commentCount, favoriteCount, likeCount, viewCount },
     },
     // ] = items ? [items[0]] : [{}];
-  ] = items
+  ] = videoItems;
+  console.log(videoComments);
 
-
-
-  console.log(videoComments)
-
+  const { items: videoCommentItems } = videoComments;
 
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
@@ -85,20 +83,45 @@ const VideoInformation = ({
           title={videoTitle}
           url={url}
           isVideoSelected={isVideoSelected}
-          />
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
+        />
+        {videoCommentItems.map((comment) => {
+          const {
+            id,
+            snippet: {
+              canReply,
+              channelId,
+              isPublic,
+              topLevelComment: {
+                id: commentId,
+                kind,
+                snippet: {
+                  authorChannelId: { value },
+                  authorChannelUrl,
+                  authorDisplayName,
+                  authorProfileImageUrl,
+                  canRate,
+                  channelId: commentChannelID,
+                  likeCount,
+                  publishedAt,
+                  textDisplay,
+                  textOriginal,
+                  updatedAt,
+                  videoId,
+                  viewerRating,
+                },
+              },
+            },
+          } = comment;
+          return (
+            <Comment
+              key={commentId}
+              authorDisplayName={authorDisplayName}
+              imageUrl={authorProfileImageUrl}
+              publishedAt={publishedAt}
+              textDisplay={textDisplay}
+            />
+          );
+        })}
       </main>
       <aside className="w-[20%] bg-blue-500">Mario</aside>
     </div>

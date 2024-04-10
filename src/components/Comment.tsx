@@ -33,10 +33,10 @@ const Comment = ({
         <img
           src={imageUrl}
           alt="Profile img"
-          className="w-full h-full rounded-full "
+          className="rounded-full w-12 h-12"
         />
       </div>
-      <div>
+      <div className="w-full">
         <div className="flex gap-4">
           <span>{authorDisplayName}</span>
           <span>{timeDifference}</span>
@@ -44,16 +44,6 @@ const Comment = ({
         <p className="text-base">{textDisplay}</p>
       </div>
     </article>
-    // <article className="border pb-2">
-    //   <img src={imageUrl} alt="Some Photo" />
-    //   <div>
-    //     <div>
-    //       <span>{authorDisplayName}</span>
-    //       <span>{publishedAt}</span>
-    //     </div>
-    //     <p>{textDisplay}</p>
-    //   </div>
-    // </article>
   );
 };
 
