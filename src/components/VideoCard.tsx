@@ -3,6 +3,8 @@ import { useState } from "react";
 import { SlLike, SlDislike } from "react-icons/sl";
 import { FaShare } from "react-icons/fa";
 import { BsDownload } from "react-icons/bs";
+import { generatePublishedDate } from "../utils/HelperFunctions";
+import { currentDate } from "../utils/HelperFunctions";
 import { formatTimeDifference } from "../utils/HelperFunctions";
 import { PiShare, PiShareFatLight } from "react-icons/pi";
 type VideoCardTypes = {
@@ -39,7 +41,6 @@ const VideoCard = ({
   videoSelected,
 }: VideoCardTypes) => {
   // const [isSelected, setIsSelected] = useState(false);
-  const currentDate = new Date();
 
   const views:string = parseInt(viewCount).toLocaleString()
   const likes:string = parseInt(likeCount).toLocaleString()
@@ -49,8 +50,9 @@ const VideoCard = ({
     kind === "youtube#channel"
       ? "w-40 h-40 rounded-full flex items-center justify-center"
       : "w-full h-full";
-
-  const publishedDate = new Date(publishTime?.substring(0, 10));
+  // ISTA STVAR SAMO SAM NAPRAVIO FUNKCIJU
+  // const publishedDate = new Date(publishTime?.substring(0, 10));
+  const publishedDate = generatePublishedDate(publishTime)
 
   const timeDifference = formatTimeDifference(currentDate, publishedDate);
 
@@ -81,7 +83,7 @@ const VideoCard = ({
       )}
 
       {isVideoSelected && (
-        <div className="flex flex-col">
+        <div className="flex flex-col pb-8">
           <div className="cursor-pointer">
             <img src={url} alt="Some img alt" className={styling} />
           </div>
