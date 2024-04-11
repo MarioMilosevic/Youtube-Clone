@@ -8,13 +8,7 @@ type ContentTypes = {
   isVideoSelected: boolean;
 };
 
-const Content = ({
-  selectedCategory,
-  responseData,
-  updateSelectedVideo,
-  videoSelected,
-  isVideoSelected
-}: ContentTypes) => {
+const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
   return (
     <div className="flex flex-col flex-1 pl-2">
       <p className="text-3xl font-semibold">
@@ -33,7 +27,11 @@ const Content = ({
               channelTitle,
               liveBroadcastContent,
               publishTime,
-              thumbnails: { default: defaultThumbnail, high: { url}, medium },
+              thumbnails: {
+                default: defaultThumbnail,
+                high: { url },
+                medium,
+              },
             },
           } = el;
 
@@ -43,14 +41,11 @@ const Content = ({
               videoId={videoId}
               kind={kindID}
               responseData={responseData}
-              updateSelectedVideo={updateSelectedVideo}
               publishTime={publishTime}
               title={title}
               channelTitle={channelTitle}
               description={description}
               url={url}
-              videoSelected={videoSelected}
-              isVideoSelected={isVideoSelected }
             />
           );
         })}
@@ -59,7 +54,7 @@ const Content = ({
   );
 };
 
-export default Content;
+export default Videos;
 
 {
   /* {responseData.map((el) => {

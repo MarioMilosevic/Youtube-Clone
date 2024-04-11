@@ -13,3 +13,7 @@
 .custom-white {
     color: #fff;
 }
+
+a {
+  background-color: red !important;
+}
