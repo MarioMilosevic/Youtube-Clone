@@ -22,7 +22,7 @@ export const fetchVideosList = async (searchValue: string) => {
     .catch((error) => console.log(error));
 };
 
-export const fetchVideoComments = async (idVideo:string) => {
+export const fetchVideoComments = async (idVideo: string) => {
   const options = {
     method: "GET",
     url: "https://youtube-v31.p.rapidapi.com/commentThreads",
@@ -39,7 +39,7 @@ export const fetchVideoComments = async (idVideo:string) => {
 
   try {
     const response = await axios.request(options);
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
@@ -62,13 +62,13 @@ export const fetchVideoDetails = async (idVideo: string) => {
   try {
     const response = await axios.request(options);
     console.log(response.data);
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const fetchSuggestedVideos = async (idVideo:string) => {
+export const fetchSuggestedVideos = async (idVideo: string) => {
   const options = {
     method: "GET",
     url: "https://youtube-v31.p.rapidapi.com/search",
@@ -87,8 +87,31 @@ export const fetchSuggestedVideos = async (idVideo:string) => {
   try {
     const response = await axios.request(options);
     console.log(response.data);
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
-}
+};
+
+// export const fetchSearchVideos = async (idVideo: string) => {
+//   const options = {
+//     method: "GET",
+//     url: "https://youtube-v31.p.rapidapi.com/captions",
+//     params: {
+//       part: "snippet",
+//       videoId: idVideo,
+//     },
+//     headers: {
+//       "X-RapidAPI-Key": "853339e32dmsh484669df916fa96p1fa47cjsn9dbd231055af",
+//       "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
+//     },
+//   };
+
+//   try {
+//     const response = await axios.request(options);
+//     console.log(response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };

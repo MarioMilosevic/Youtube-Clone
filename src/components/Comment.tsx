@@ -1,37 +1,28 @@
-import probno from "../assets/probno.jpg";
-import vegeta from "../assets/vegeta.webp";
 import {
   formatTimeDifference,
   generatePublishedDate,
   currentDate,
 } from "../utils/HelperFunctions";
 type CommentTypes = {
-  imageUrl: string;
-  authorDisplayName: string;
-  publishedAt: string;
-  textDisplay: string;
+  snippet: {
+    authorProfileImageUrl: string;
+    authorDisplayName: string;
+    publishedAt: string;
+    textDisplay: string;
+  };
 };
 
-// const Comment = ({
-// //   imageUrl,
-// //   authorDisplayName,
-// //   publishedAt,
-// //   textDisplay,
-// }: CommentTypes) => {
+const Comment = ({ snippet }: CommentTypes) => {
+  const { authorDisplayName, authorProfileImageUrl, publishedAt, textDisplay } =
+    snippet;
 
-const Comment = ({
-  imageUrl,
-  authorDisplayName,
-  publishedAt,
-  textDisplay,
-}: CommentTypes) => {
   const publishedDate = generatePublishedDate(publishedAt);
   const timeDifference = formatTimeDifference(currentDate, publishedDate);
   return (
     <article className="pb-4 flex gap-4">
       <div className="w-12 h-12 rounded-full">
         <img
-          src={imageUrl}
+          src={authorProfileImageUrl}
           alt="Profile img"
           className="rounded-full w-12 h-12"
         />
@@ -41,8 +32,10 @@ const Comment = ({
           <span>{authorDisplayName}</span>
           <span>{timeDifference}</span>
         </div>
-        <p className="text-base" dangerouslySetInnerHTML={{ __html: textDisplay }}>
-        </p>
+        <p
+          className="text-base"
+          dangerouslySetInnerHTML={{ __html: textDisplay }}
+        ></p>
       </div>
     </article>
   );

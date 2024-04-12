@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
-import YoutubeExplorer from "./YoutubeExplorer";
+import YoutubeExplorer from "./components/YoutubeExplorer";
 import VideoInformation from "./components/VideoInformation";
 // import Videos from "./components/Videos"
 import Mario from "./components/Mario";
@@ -38,9 +38,17 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Header updateUrl={updateUrl } />}>
-            <Route index element={<YoutubeExplorer updateUrl={updateUrl} responseData={responseData}  />} />
-            <Route path="/video/:videoId" element={<Mario />} />
+          <Route path="/" element={<Header updateUrl={updateUrl} />}>
+            <Route
+              index
+              element={
+                <YoutubeExplorer
+                  updateUrl={updateUrl}
+                  responseData={responseData}
+                />
+              }
+            />
+            <Route path="/video/:videoId" element={<VideoInformation />} />
             {/* <Route path="*" element={<Error/> }/> */}
           </Route>
         </Routes>
