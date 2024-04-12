@@ -22,15 +22,13 @@ const VideoInformation = () => {
   const [videoComments, setVideoComments] = useState();
   // const [suggestedVideos, setSuggestedVideos] = useState();
   const { videoId } = useParams();
-  console.log(videoId);
-
-
+  // console.log(videoId);
+  // promise all
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetchVideoDetails(videoId);
         setVideoDetails(response);
-        console.log("ovo odje je response", response);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -68,31 +66,22 @@ const VideoInformation = () => {
   }
 
   const { items: videoDetailsItems } = videoDetails || {};
-  const [
-    {
-      snippet: {
-        thumbnails: {
-          high: { url },
-        },
-        title: videoTitle,
-      },
-      statistics: { likeCount, viewCount },
-    },
-  ] = videoDetailsItems;
-
+  console.log(videoDetailsItems);
+  const [{ snippet }] = videoDetailsItems;
+  console.log(snippet);
   const { items: videoCommentItems } = videoComments;
-
+  // da u VideoCard proslijedim snippet, i da smislim neku logiku da bih  sto destrukturovao, i sta cu da prikazem al primam snippet u oba slucaja
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
-        <VideoCard
-          likeCount={likeCount}
-          viewCount={viewCount}
-          title={videoTitle}
-          url={url}
-        />
+        {/* <VideoCard
+          key={videoId || channelId}
+          snippet={snippet}
+          id={videoId || channelId}
+          kind={kind}
+        /> */}
         {videoCommentItems.map((comment, index) => {
-          const { snippet } = comment;
+          const {snippet:{topLevelComment:{snippet}}} = comment
           return <Comment key={index} snippet={snippet} />;
         })}
       </main>

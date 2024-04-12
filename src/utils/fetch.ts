@@ -36,7 +36,6 @@ export const fetchVideoComments = async (idVideo: string) => {
       "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
     },
   };
-
   try {
     const response = await axios.request(options);
     return response.data;
@@ -58,10 +57,9 @@ export const fetchVideoDetails = async (idVideo: string) => {
       "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
     },
   };
-
   try {
     const response = await axios.request(options);
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -18,6 +18,7 @@ const Comment = ({ snippet }: CommentTypes) => {
 
   const publishedDate = generatePublishedDate(publishedAt);
   const timeDifference = formatTimeDifference(currentDate, publishedDate);
+
   return (
     <article className="pb-4 flex gap-4">
       <div className="w-12 h-12 rounded-full">
