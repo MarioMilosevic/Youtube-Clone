@@ -3,6 +3,7 @@ import Videos from "./components/Videos";
 import { useState, useEffect } from "react";
 import { ResponseType } from "axios";
 import { fetchVideosList } from "./utils/fetch";
+import Wrapper from "./components/Wrapper";
 
 type YoutubeExplorerTypes = {
   updateSelectedCategory: (category: string) => void;
@@ -14,53 +15,27 @@ type YoutubeExplorerTypes = {
   isVideoSelected: boolean;
 };
 
-const YoutubeExplorer = () => {
+const YoutubeExplorer = ({responseData,updateUrl}) => {
   const [selectedCategory, setSelectedCategory] = useState("New");
-  const [responseData, setResponseData] = useState<ResponseType[]>([]);
-  const [url, setUrl] = useState("New");
-  const [isVideoSelected, setIsVideoSelected] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { items } = await fetchVideosList(url);
-        setResponseData(items);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [url]);
 
   const updateSelectedCategory = (category: string) => {
     setSelectedCategory(category);
   };
 
-  // const updateSelectedVideo = (id: SetStateAction<ResponseType>) => {
-  //   setSelectedVideo(id);
-  // };
-
-  const updateUrl = (input: string) => {
-    setUrl(input);
-  };
-
-  const videoSelected = () => {
-    setIsVideoSelected(true);
-  };
-
-  const videoNotSelected = () => {
-    setIsVideoSelected(false);
-  };
+ 
   return (
     <>
-      <Categories
-        updateSelectedCategory={updateSelectedCategory}
-        updateUrl={updateUrl}
-      />
-      <Videos
-        selectedCategory={selectedCategory}
-        responseData={responseData}
-      />
+      <Wrapper>
+        <Categories
+          updateSelectedCategory={updateSelectedCategory}
+          updateUrl={updateUrl}
+        />
+        <Videos
+          selectedCategory={selectedCategory}
+          responseData={responseData}
+        />
+      </Wrapper>
     </>
   );
 };

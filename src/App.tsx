@@ -17,18 +17,34 @@ import Mario from "./components/Mario";
 // ])
 
 function App() {
+  const [responseData, setResponseData] = useState<ResponseType[]>([]);
+  const [url, setUrl] = useState("New");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { items } = await fetchVideosList(url);
+        setResponseData(items);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [url]);
+
+  const updateUrl = (input: string) => {
+    setUrl(input);
+  };
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Header />}>
-            <Route index element={<YoutubeExplorer />} />
+          <Route path="/" element={<Header updateUrl={updateUrl } />}>
+            <Route index element={<YoutubeExplorer updateUrl={updateUrl} responseData={responseData}  />} />
             <Route path="/video/:videoId" element={<Mario />} />
             {/* <Route path="*" element={<Error/> }/> */}
           </Route>
         </Routes>
       </BrowserRouter>
-      {/* <Header updateUrl={updateUrl} videoNotSelected={videoNotSelected} /> */}
     </>
   );
 }
