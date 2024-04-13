@@ -1,13 +1,13 @@
 import { ResponseType } from "axios";
 import { useState } from "react";
 import { SlLike, SlDislike } from "react-icons/sl";
-import { FaShare } from "react-icons/fa";
 import { BsDownload } from "react-icons/bs";
 import { generatePublishedDate } from "../utils/HelperFunctions";
 import { currentDate } from "../utils/HelperFunctions";
 import { formatTimeDifference } from "../utils/HelperFunctions";
-import { PiShare, PiShareFatLight } from "react-icons/pi";
+import { PiShareFatLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { FiShare } from "react-icons/fi";
 
 const VideoCard = ({ snippet, kind, id, statistics }: VideoCardTypes) => {
   // const views: string = parseInt(viewCount).toLocaleString();
@@ -30,7 +30,7 @@ const VideoCard = ({ snippet, kind, id, statistics }: VideoCardTypes) => {
 
   const publishedDate = generatePublishedDate(publishedAt);
   const timeDifference = formatTimeDifference(currentDate, publishedDate);
-  console.log("duzina keysa", Object.keys(statistics).length)
+  console.log("duzina keysa", Object.keys(statistics).length);
   return (
     <Link to={`/video/${id === null ? "9rVKos-oGnQ" : id}`}>
       <div className="flex flex-col cursor-pointer">
@@ -48,11 +48,32 @@ const VideoCard = ({ snippet, kind, id, statistics }: VideoCardTypes) => {
         )}
         {Object.keys(statistics).length > 0 && (
           <>
-            <div className="h-[500px] w-[500px] bg-white">
+            <div className="h-full w-full">
               <div className="h-full flex justify-center items-center ">
                 <img src={url.url} alt={title} className={styling} />
               </div>
-              <h2 dangerouslySetInnerHTML={{ __html: title }}></h2>
+              <h2
+                className="text-lg py-2"
+                dangerouslySetInnerHTML={{ __html: title }}
+              ></h2>
+              <div className="flex justify-between pb-6">
+                <span>{viewCount} views</span>
+                <div className="flex gap-8">
+                  <div className="flex gap-2 items-center">
+                    <SlLike />
+                    <span>{likeCount}</span>
+                    <SlDislike />
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <PiShareFatLight />
+                    <span>SHARE</span>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <BsDownload />
+                    <span>Download</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </>
         )}
@@ -62,4 +83,3 @@ const VideoCard = ({ snippet, kind, id, statistics }: VideoCardTypes) => {
 };
 
 export default VideoCard;
-
