@@ -25,8 +25,9 @@ const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
             <VideoCard
               key={videoId || channelId}
               snippet={snippet}
-              id={videoId || channelId }
+              id={videoId || channelId}
               kind={kind}
+              statistics={""}
             />
           );
         })}

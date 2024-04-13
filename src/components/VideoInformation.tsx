@@ -15,12 +15,10 @@ type VideoInformationTypes = {
   selectedVideo: ResponseType;
   isVideoSelected: boolean;
 };
-// const VideoInformation = ({}: VideoInformationTypes) => {
-
 const VideoInformation = () => {
   const [videoDetails, setVideoDetails] = useState();
   const [videoComments, setVideoComments] = useState();
-  // const [suggestedVideos, setSuggestedVideos] = useState();
+  const [suggestedVideos, setSuggestedVideos] = useState();
   const { videoId } = useParams();
   // console.log(videoId);
   // promise all
@@ -48,44 +46,54 @@ const VideoInformation = () => {
     fetchData();
   }, [videoId]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetchSuggestedVideos(videoId)
-  //       setSuggestedVideos(response)
-  //     } catch (error) {
-  //       console.error("Errof fetching data", error)
-  //     }
-  //   }
-  //   fetchData()
-  // }, [videoId])
-  // NIJE JOS STIGLO NA RED ///////////////////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchSuggestedVideos(videoId);
+        setSuggestedVideos(response);
+      } catch (error) {
+        console.error("Errof fetching data", error);
+      }
+    };
+    fetchData();
+  }, [videoId]);
 
-  if (!videoDetails || !videoComments) {
+  if (!videoDetails || !videoComments || !suggestedVideos) {
     return <Loading />;
   }
-
-  const { items: videoDetailsItems } = videoDetails || {};
-  console.log(videoDetailsItems);
-  const [{ snippet }] = videoDetailsItems;
-  console.log(snippet);
+  console.log("videoDetails flkajfalfja;l", videoDetails);
+  const { kind, items: videoDetailsItems } = videoDetails || {};
+  console.log(kind, "KIND");
+  const [{ snippet, statistics }] = videoDetailsItems;
+  // trebam da nabavim channelID i kind
   const { items: videoCommentItems } = videoComments;
-  // da u VideoCard proslijedim snippet, i da smislim neku logiku da bih  sto destrukturovao, i sta cu da prikazem al primam snippet u oba slucaja
+
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
-        {/* <VideoCard
-          key={videoId || channelId}
+        <VideoCard
+          key={videoId}
+          // key={videoId || channelId}
           snippet={snippet}
-          id={videoId || channelId}
-          kind={kind}
-        /> */}
+          id={videoId}
+          // id={videoId || channelId}
+          // kind={kind}
+          statistics={statistics}
+        />
         {videoCommentItems.map((comment, index) => {
-          const {snippet:{topLevelComment:{snippet}}} = comment
+          const {
+            snippet: {
+              topLevelComment: { snippet },
+            },
+          } = comment;
           return <Comment key={index} snippet={snippet} />;
         })}
       </main>
-      <aside className="w-[20%] bg-blue-500">Mario</aside>
+      <aside className="w-[20%] bg-blue-500">
+        {/* {suggestedVideos.map(video => {
+          return <VideoCard />
+        })} */}
+      </aside>
     </div>
   );
 };
