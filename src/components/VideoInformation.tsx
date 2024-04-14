@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ResponseType } from "axios";
 import VideoCard from "./VideoCard";
 import ReactPlayer from "react-player/youtube";
@@ -67,6 +67,7 @@ const VideoInformation = () => {
   console.log(suggestedVideos)
   const {kind:suggestedKind, items:suggestedVideoItems} = suggestedVideos
   return (
+    // height 22rem width 100%
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
         <VideoCard
@@ -87,7 +88,7 @@ const VideoInformation = () => {
           return <Comment key={index} snippet={snippet} />;
         })}
       </main>
-      <aside className="w-[20%] bg-blue-500">
+      <aside>
         {suggestedVideoItems.map(item => {
         const {id:{videoId:suggestedVideoId}, snippet} = item
           return <VideoCard key={suggestedVideoId} snippet={snippet} kind={suggestedKind} statistics={""}/>

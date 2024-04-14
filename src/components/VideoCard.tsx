@@ -35,9 +35,9 @@ const VideoCard = ({ snippet, kind, id, statistics }: VideoCardTypes) => {
         {Object.keys(statistics).length === 0 && (
           <>
             <div className="h-[200px] flex justify-center items-center ">
-              <img src={url.url} alt={title} className={styling} />
+              <img src={url.url || url} alt={title} className={styling} />
             </div>
-            <div className="bg-stone-900 h-[150px] flex flex-col p-2 justify-center gap-2">
+            <div className="bg-stone-900 min-h-[130px] px-2 justify-center py-1 flex flex-col gap-1">
               <h2 dangerouslySetInnerHTML={{ __html: truncatedTitle }}></h2>
               <h3 className="text-stone-400">{channelTitle}</h3>
               <h4>{timeDifference}</h4>
