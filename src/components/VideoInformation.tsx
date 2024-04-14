@@ -63,19 +63,16 @@ const VideoInformation = () => {
   }
   const { items: videoDetailsItems } = videoDetails || {};
   const [{ snippet, statistics }] = videoDetailsItems;
-  // trebam da nabavim channelID i kind
   const { items: videoCommentItems } = videoComments;
-  console.log(suggestedVideos)
-  const {kind:suggestedKind, items:suggestedVideoItems} = suggestedVideos
+  console.log(suggestedVideos);
+  const { kind: suggestedKind, items: suggestedVideoItems } = suggestedVideos;
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
         <VideoCard
           key={videoId}
-          // key={videoId || channelId}
           snippet={snippet}
           id={videoId}
-          // id={videoId || channelId}
           statistics={statistics}
         />
         {videoCommentItems.map((comment, index) => {
@@ -88,9 +85,20 @@ const VideoInformation = () => {
         })}
       </main>
       <aside>
-        {suggestedVideoItems.map(item => {
-          const { id: { videoId: suggestedVideoId }, snippet } = item
-          return <VideoCard key={suggestedVideoId} id={suggestedVideoId } snippet={snippet} kind={suggestedKind} statistics={""}/>
+        {suggestedVideoItems.map((item) => {
+          const {
+            id: { videoId: suggestedVideoId },
+            snippet,
+          } = item;
+          return (
+            <VideoCard
+              key={suggestedVideoId}
+              id={suggestedVideoId}
+              snippet={snippet}
+              kind={suggestedKind}
+              statistics={""}
+            />
+          );
         })}
       </aside>
     </div>
