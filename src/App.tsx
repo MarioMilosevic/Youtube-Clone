@@ -1,14 +1,16 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ResponseType } from "axios";
 import { fetchVideosList } from "./utils/fetch";
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+// import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import { Dispatch, SetStateAction } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Wrapper from "./components/Wrapper";
 import YoutubeExplorer from "./components/YoutubeExplorer";
 import VideoInformation from "./components/VideoInformation";
-// import Videos from "./components/Videos"
 import Mario from "./components/Mario";
+
+export type UpdateUrlFn = Dispatch<SetStateAction<string>>;
+// import Videos from "./components/Videos"
 // const router = createBrowserRouter([
 //   { path: "/", element:<App/> },
 //   { path: "/video", element:<YoutubeExplorer/> },
@@ -31,7 +33,7 @@ function App() {
     fetchData();
   }, [url]);
 
-  const updateUrl = (input: string) => {
+  const updateUrl: UpdateUrlFn = (input: string) => {
     setUrl(input);
   };
   return (
@@ -48,6 +50,7 @@ function App() {
                 />
               }
             />
+            {/* <Route path="/video/:videoId" element={<Mario />} /> */}
             <Route path="/video/:videoId" element={<VideoInformation />} />
             {/* <Route path="*" element={<Error/> }/> */}
           </Route>

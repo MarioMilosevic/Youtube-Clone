@@ -14,7 +14,7 @@ export type VideoSearchType = {
     };
     snippet: {
       publishedAt: string;
-      channeldId: string;
+      channelId: string;
       title: string;
       description: string;
       thumbnails: {
@@ -33,7 +33,7 @@ export type VideoSearchType = {
       publishedTime: string;
     };
   }[];
-};
+}[];
 
 export type VideoDetailsType = {
   kind: string;

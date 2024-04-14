@@ -10,16 +10,13 @@ import {
   fetchSuggestedVideos,
 } from "../utils/fetch";
 import Loading from "./Loading";
-type VideoInformationTypes = {
-  responseData: ResponseType[];
-  selectedVideo: ResponseType;
-  isVideoSelected: boolean;
-};
+
 const VideoInformation = () => {
   const [videoDetails, setVideoDetails] = useState();
   const [videoComments, setVideoComments] = useState();
   const [suggestedVideos, setSuggestedVideos] = useState();
   const { videoId } = useParams();
+  console.log(videoId);
 
   // promise all
   useEffect(() => {
@@ -63,16 +60,17 @@ const VideoInformation = () => {
   }
   const { items: videoDetailsItems } = videoDetails || {};
   const [{ snippet, statistics }] = videoDetailsItems;
+  console.log("snippet iz video info",snippet)
   const { items: videoCommentItems } = videoComments;
-  console.log(suggestedVideos);
-  const { kind: suggestedKind, items: suggestedVideoItems } = suggestedVideos;
+  const { items: suggestedVideoItems } = suggestedVideos;
+  const videoCardId = {videoId:videoId}
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
         <VideoCard
-          key={videoId}
+          key={videoCardId}
           snippet={snippet}
-          id={videoId}
+          id={videoCardId}
           statistics={statistics}
         />
         {videoCommentItems.map((comment, index) => {
@@ -95,7 +93,6 @@ const VideoInformation = () => {
               key={suggestedVideoId}
               id={suggestedVideoId}
               snippet={snippet}
-              kind={suggestedKind}
               statistics={""}
             />
           );

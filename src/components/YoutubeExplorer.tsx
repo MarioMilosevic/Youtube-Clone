@@ -1,20 +1,17 @@
 import Categories from "./Categories";
 import Videos from "./Videos";
-import { useState} from "react";
-import { ResponseType } from "axios";
+import { useState } from "react";
 import Wrapper from "./Wrapper";
+import { VideoSearchType } from "../types/types";
+import { UpdateUrlFn } from "../App";
+import { ResponseType } from "axios";
 
 type YoutubeExplorerTypes = {
-  updateSelectedCategory: (category: string) => void;
-  updateUrl: (input: string) => void;
-  selectedCategory: string;
-  responseData: ResponseType[];
-  updateSelectedVideo: (id: string) => void;
-  videoSelected: () => void;
-  isVideoSelected: boolean;
+  updateUrl: UpdateUrlFn;
+  responseData: ResponseType;
 };
 
-const YoutubeExplorer = ({ responseData, updateUrl }) => {
+const YoutubeExplorer = ({ responseData, updateUrl }: YoutubeExplorerTypes) => {
   const [selectedCategory, setSelectedCategory] = useState("New");
 
   const updateSelectedCategory = (category: string) => {
