@@ -1,5 +1,3 @@
-import { ResponseType } from "axios";
-import { useState } from "react";
 import { SlLike, SlDislike } from "react-icons/sl";
 import { BsDownload } from "react-icons/bs";
 import { generatePublishedDate } from "../utils/HelperFunctions";
@@ -7,35 +5,31 @@ import { currentDate } from "../utils/HelperFunctions";
 import { formatTimeDifference } from "../utils/HelperFunctions";
 import { PiShareFatLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { FiShare } from "react-icons/fi";
 
-const VideoCard = ({ snippet, kind, id, statistics }: VideoCardTypes) => {
-  // const views: string = parseInt(viewCount).toLocaleString();
-  // const likes: string = parseInt(likeCount).toLocaleString();
+const VideoCard = ({ snippet, id, statistics }: VideoCardTypes) => {
   const { likeCount, viewCount } = statistics !== "" ? statistics : {};
-  // {Object.keys(statistics).length > 0 && <RenderComponent />}
+    const views = viewCount !== undefined ? parseInt(viewCount).toLocaleString() : "";
+    const likes = likeCount !== undefined ? parseInt(likeCount).toLocaleString() : "";
   const {
     channelId,
     channelTitle,
     publishedAt,
     title,
-    thumbnails: { high: url },
+    thumbnails: { high: { url } },
   } = snippet;
 
-  const styling =
-    kind === "youtube#channel"
-      ? "w-40 h-40 rounded-full flex items-center justify-center"
-      : "w-full h-full";
+  const styling = id.channelId !== undefined ? "w-40 h-40 rounded-full flex itemc-center justify-center" : "w-full h-full"
+  
   const truncatedTitle = title.length > 50 ? title.slice(0, 50) + "..." : title;
   const publishedDate = generatePublishedDate(publishedAt);
   const timeDifference = formatTimeDifference(currentDate, publishedDate);
   return (
-    <Link to={`/video/${id === null ? "9rVKos-oGnQ" : id}`}>
+    <Link to={`/video/${id === undefined ? "9rVKos-oGnQ" : id}`}>
       <div className="flex flex-col cursor-pointer">
         {Object.keys(statistics).length === 0 && (
           <>
             <div className="h-[200px] flex justify-center items-center ">
-              <img src={url.url || url} alt={title} className={styling} />
+              <img src={url} alt={title} className={styling} />
             </div>
             <div className="bg-stone-900 min-h-[130px] px-2 justify-center py-1 flex flex-col gap-1">
               <h2 dangerouslySetInnerHTML={{ __html: truncatedTitle }}></h2>
@@ -55,11 +49,11 @@ const VideoCard = ({ snippet, kind, id, statistics }: VideoCardTypes) => {
                 dangerouslySetInnerHTML={{ __html: title }}
               ></h2>
               <div className="flex justify-between pb-6">
-                <span>{viewCount} views</span>
+                <span>{views} views</span>
                 <div className="flex gap-8">
                   <div className="flex gap-2 items-center">
                     <SlLike />
-                    <span>{likeCount}</span>
+                    <span>{likes}</span>
                     <SlDislike />
                   </div>
                   <div className="flex gap-2 items-center">

@@ -20,6 +20,7 @@ const VideoInformation = () => {
   const [videoComments, setVideoComments] = useState();
   const [suggestedVideos, setSuggestedVideos] = useState();
   const { videoId } = useParams();
+
   // promise all
   useEffect(() => {
     const fetchData = async () => {
@@ -60,14 +61,13 @@ const VideoInformation = () => {
   if (!videoDetails || !videoComments || !suggestedVideos) {
     return <Loading />;
   }
-  const { kind:videoDetailsKind, items: videoDetailsItems } = videoDetails || {};
+  const { items: videoDetailsItems } = videoDetails || {};
   const [{ snippet, statistics }] = videoDetailsItems;
   // trebam da nabavim channelID i kind
   const { items: videoCommentItems } = videoComments;
   console.log(suggestedVideos)
   const {kind:suggestedKind, items:suggestedVideoItems} = suggestedVideos
   return (
-    // height 22rem width 100%
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
         <VideoCard
@@ -76,7 +76,6 @@ const VideoInformation = () => {
           snippet={snippet}
           id={videoId}
           // id={videoId || channelId}
-          kind={videoDetailsKind}
           statistics={statistics}
         />
         {videoCommentItems.map((comment, index) => {
@@ -90,8 +89,8 @@ const VideoInformation = () => {
       </main>
       <aside>
         {suggestedVideoItems.map(item => {
-        const {id:{videoId:suggestedVideoId}, snippet} = item
-          return <VideoCard key={suggestedVideoId} snippet={snippet} kind={suggestedKind} statistics={""}/>
+          const { id: { videoId: suggestedVideoId }, snippet } = item
+          return <VideoCard key={suggestedVideoId} id={suggestedVideoId } snippet={snippet} kind={suggestedKind} statistics={""}/>
         })}
       </aside>
     </div>

@@ -9,6 +9,7 @@ type ContentTypes = {
 };
 
 const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
+  console.log(responseData)
   return (
     <div className="flex flex-col flex-1 pl-2">
       <p className="text-3xl font-semibold">
@@ -17,16 +18,16 @@ const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
       <main className="pt-12 grid gap-4 grid-cols-4">
         {responseData.map((el) => {
           const {
-            id: { channelId, videoId },
+            // id: { channelId, videoId },
+             id,
             kind,
             snippet,
           } = el;
           return (
             <VideoCard
-              key={videoId || channelId}
+              key={id.videoId || id.channelId}
               snippet={snippet}
-              id={videoId || channelId}
-              kind={kind}
+              id={id}
               statistics={""}
             />
           );
