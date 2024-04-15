@@ -1,26 +1,18 @@
 import { useEffect, useState } from "react";
-import { ResponseType } from "axios";
 import { fetchVideosList } from "./utils/fetch";
-// import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import YoutubeExplorer from "./components/YoutubeExplorer";
 import VideoInformation from "./components/VideoInformation";
-import Mario from "./components/Mario";
-
-export type UpdateUrlFn = Dispatch<SetStateAction<string>>;
-// import Videos from "./components/Videos"
-// const router = createBrowserRouter([
-//   { path: "/", element:<App/> },
-//   { path: "/video", element:<YoutubeExplorer/> },
-//   { path: "/", element:"" },
-
-// ])
+import ChannelInformation from "./components/ChannelInformation";
+import { VideoSearchType } from "./types/types";
 
 function App() {
-  const [responseData, setResponseData] = useState<ResponseType[]>([]);
+  const [responseData, setResponseData] = useState<
+    VideoSearchType[] | undefined
+  >();
   const [url, setUrl] = useState("New");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,7 +25,7 @@ function App() {
     fetchData();
   }, [url]);
 
-  const updateUrl: UpdateUrlFn = (input: string) => {
+  const updateUrl = (input: string) => {
     setUrl(input);
   };
   return (
@@ -44,14 +36,21 @@ function App() {
             <Route
               index
               element={
-                <YoutubeExplorer
-                  updateUrl={updateUrl}
-                  responseData={responseData}
-                />
+                responseData !== undefined ? (
+                  <YoutubeExplorer
+                    updateUrl={updateUrl}
+                    responseData={responseData}
+                  />
+                ) : null
               }
             />
-            {/* <Route path="/video/:videoId" element={<Mario />} /> */}
             <Route path="/video/:videoId" element={<VideoInformation />} />
+            <Route
+              path="/channel/:channelId"
+              element={<ChannelInformation />}
+            />{" "}
+            {/*moram provjerit
+            / : channelId*/}
             {/* <Route path="*" element={<Error/> }/> */}
           </Route>
         </Routes>

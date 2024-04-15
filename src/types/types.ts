@@ -37,68 +37,70 @@ export type VideoSearchType = {
 
 export type VideoDetailsType = {
   kind: string;
-  items: {
-    kind: string;
-    id: string;
-    snippet: {
-      publishedAt: string;
-      channelId: string;
+  items: VideoDetailsItems[];
+};
+
+export type VideoDetailsItems = {
+  kind: string;
+  id: string;
+  snippet: {
+    publishedAt: string;
+    channelId: string;
+    title: string;
+    description: string;
+    thumbnails: {
+      default: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      medium: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      standard: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      maxres: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+    channelTitle: string;
+    tags: string[];
+    categoryId: string;
+    liveBroadcastContent: string;
+    localized: {
       title: string;
       description: string;
-      thumbnails: {
-        default: {
-          url: string;
-          width: number;
-          height: number;
-        };
-        medium: {
-          url: string;
-          width: number;
-          height: number;
-        };
-        high: {
-          url: string;
-          width: number;
-          height: number;
-        };
-        standard: {
-          url: string;
-          width: number;
-          height: number;
-        };
-        maxres: {
-          url: string;
-          width: number;
-          height: number;
-        };
-      };
-      channelTitle: string;
-      tags: string[];
-      categoryId: string;
-      liveBroadcastContent: string;
-      localized: {
-        title: string;
-        description: string;
-      };
     };
-    contentDetails: {
-      duration: string;
-      dimension: string;
-      definition: string;
-      caption: string;
-      licensedContent: true;
-      regionRestriction: {
-        blocked: string[];
-      };
-      contentRating: Record<string, never>;
-      projection: string;
+  };
+  contentDetails: {
+    duration: string;
+    dimension: string;
+    definition: string;
+    caption: string;
+    licensedContent: true;
+    regionRestriction: {
+      blocked: string[];
     };
-    statistics: {
-      viewCount: string;
-      likeCount: string;
-      favoriteCount: string;
-      commentCount: string;
-    };
+    contentRating: Record<string, never>;
+    projection: string;
+  };
+  statistics: {
+    viewCount: string;
+    likeCount: string;
+    favoriteCount: string;
+    commentCount: string;
   };
 };
 
@@ -194,3 +196,27 @@ export type VideoSuggestedType = {
     };
   }[];
 };
+
+
+// export type VideoData = {
+//   id: {
+//     videoId?: string;
+//     channelId?: string;
+//   };
+//   snippet: {
+//     channelId: string;
+//     channelTitle: string;
+//     publishedAt: string;
+//     title: string;
+//     thumbnails: {
+//       high: {
+//         url: string;
+//       };
+//     };
+//   };
+//   statistics?: {
+//     likeCount: string;
+//     viewCount: string;
+//   };
+// };
+

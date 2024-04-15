@@ -1,10 +1,9 @@
 import VideoCard from "./VideoCard";
-// import { VideoSearchType } from "../types/types";
-import { ResponseType } from "axios";
+import { VideoSearchType } from "../types/types";
+
 type ContentTypes = {
   selectedCategory: string;
-  // responseData: VideoSearchType;
-  responseData: ResponseType[];
+  responseData: VideoSearchType[];
 };
 
 const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
@@ -15,8 +14,7 @@ const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
       </p>
       <main className="pt-12 grid gap-4 grid-cols-4">
         {responseData.map((el) => {
-          console.log(el)
-          const { id, snippet } = el;
+          const { id, snippet } = el ;
           return (
             <VideoCard
               key={id.videoId || id.channelId}

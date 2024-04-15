@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { ResponseType } from "axios";
 import VideoCard from "./VideoCard";
-import ReactPlayer from "react-player/youtube";
+// import { ResponseType } from "axios";
+import { VideoDetailsItems } from "../types/types";
+// import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router";
 import Comment from "./Comment";
 import {
@@ -13,17 +14,26 @@ import Loading from "./Loading";
 
 const VideoInformation = () => {
   const [videoDetails, setVideoDetails] = useState();
-  const [videoComments, setVideoComments] = useState();
+  const [videoComments, setVideoComments] = useState([]);
   const [suggestedVideos, setSuggestedVideos] = useState();
-  const { videoId } = useParams();
+  const { videoId }: { videoId?: string } = useParams();
   console.log(videoId);
 
   // promise all
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchVideoDetails(videoId);
-        setVideoDetails(response);
+        if (videoId) {
+          const [details, comments, suggested] = await Promise.all([
+            fetchVideoDetails(videoId),
+            fetchVideoComments(videoId),
+            fetchSuggestedVideos(videoId),
+          ]);
+          setVideoDetails(details);
+          setVideoComments(comments);
+          setSuggestedVideos(suggested);
+        }
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -31,39 +41,17 @@ const VideoInformation = () => {
     fetchData();
   }, [videoId]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchVideoComments(videoId);
-        setVideoComments(response);
-      } catch (error) {
-        console.error("Error fetching data", error);
-      }
-    };
-    fetchData();
-  }, [videoId]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchSuggestedVideos(videoId);
-        setSuggestedVideos(response);
-      } catch (error) {
-        console.error("Errof fetching data", error);
-      }
-    };
-    fetchData();
-  }, [videoId]);
 
   if (!videoDetails || !videoComments || !suggestedVideos) {
     return <Loading />;
   }
-  const { items: videoDetailsItems } = videoDetails || {};
+  const { items: videoDetailsItems = [] }: { items: VideoDetailsItems[] } =
+    videoDetails || {};
   const [{ snippet, statistics }] = videoDetailsItems;
-  console.log("snippet iz video info",snippet)
+
   const { items: videoCommentItems } = videoComments;
   const { items: suggestedVideoItems } = suggestedVideos;
-  const videoCardId = {videoId:videoId}
+  const videoCardId = { videoId: videoId };
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
@@ -73,25 +61,22 @@ const VideoInformation = () => {
           id={videoCardId}
           statistics={statistics}
         />
-        {videoCommentItems.map((comment, index) => {
+        {videoCommentItems.map((comment) => {
           const {
             snippet: {
               topLevelComment: { snippet },
             },
           } = comment;
-          return <Comment key={index} snippet={snippet} />;
+          return <Comment key={comment} snippet={snippet} />;
         })}
       </main>
       <aside>
         {suggestedVideoItems.map((item) => {
-          const {
-            id: { videoId: suggestedVideoId },
-            snippet,
-          } = item;
+          const { id, snippet } = item;
           return (
             <VideoCard
-              key={suggestedVideoId}
-              id={suggestedVideoId}
+              key={id.videoId}
+              id={id}
               snippet={snippet}
               statistics={""}
             />
@@ -103,3 +88,45 @@ const VideoInformation = () => {
 };
 
 export default VideoInformation;
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       if (videoId) {
+//         const response = await fetchVideoDetails(videoId);
+//         setVideoDetails(response);
+//       }
+//     } catch (error) {
+//       console.error("Error fetching data", error);
+//     }
+//   };
+//   fetchData();
+// }, [videoId]);
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       if (videoId) {
+//         const response = await fetchVideoComments(videoId);
+//         setVideoComments(response);
+//       }
+//     } catch (error) {
+//       console.error("Error fetching data", error);
+//     }
+//   };
+//   fetchData();
+// }, [videoId]);
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       if (videoId) {
+//         const response = await fetchSuggestedVideos(videoId);
+//         setSuggestedVideos(response);
+//       }
+//     } catch (error) {
+//       console.error("Error fetching data", error);
+//     }
+//   };
+//   fetchData();
+// }, [videoId]);
