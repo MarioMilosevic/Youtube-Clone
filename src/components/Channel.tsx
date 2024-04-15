@@ -1,12 +1,14 @@
-import { fetchChannelDetails } from "../utils/fetch";
+import { fetchChannelDetails, fetchChannelVideos } from "../utils/fetch";
 import { useEffect, useState } from "react";
+import VideoCard from "./VideoCard";
 import Loading from "./Loading";
 import { useParams } from "react-router";
 import ChannelInformation from "./ChannelInformation";
 
 const Channel = () => {
   const [channelDetails, setChannelDetails] = useState();
-  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [channelVideos, setChannelVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { channelId }: { channelId?: string } = useParams();
 
   useEffect(() => {
@@ -14,12 +16,9 @@ const Channel = () => {
       try {
         if (channelId) {
           const response = await fetchChannelDetails(channelId);
-          console.log("ovo je response ", response);
-          const { items } = response;
-          const [firstObject] = items;
-          // const { snippet } = firstObject;
-          // da proslijedim citav response, pa da tamo destrukutrujem
-          // const {brandingSettings:{image:{bannerExternalUrl}} ,snippet} = firstObject
+          const {
+            items: [firstObject],
+          } = response;
           setChannelDetails(firstObject);
         }
       } catch (error) {
@@ -31,17 +30,46 @@ const Channel = () => {
     fetchData();
   }, [channelId]);
 
-  // const { items } = channelDetails
-  // const [firstObject] = items
-  // const { id, snippet } = firstObject
-  // console.log(id, snippet)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (channelId) {
+          const response = await fetchChannelVideos(channelId);
+          const { items } = response;
+          console.log("ovo je response", items);
+          setChannelVideos(items);
+        }
+      } catch (error) {
+        console.error("Error fetching data", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [channelId]);
 
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
-        <ChannelInformation channelDetails={channelDetails} />
+        <>
+            <ChannelInformation channelDetails={channelDetails} />
+            <main className="grid grid-cols-4 w-[1300px] mx-auto gap-4 pt-4">
+          {channelVideos?.map((video) => {
+            const { id, snippet } = video;
+            console.log(id, snippet);
+            return (
+              <VideoCard
+              key={id.videoId}
+              id={id}
+              snippet={snippet}
+              statistics={""}
+              />
+            );
+          })}
+          </main>
+        </>
       )}
     </>
   );

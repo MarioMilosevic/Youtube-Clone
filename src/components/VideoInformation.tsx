@@ -56,7 +56,7 @@ const VideoInformation = () => {
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
         <VideoCard
-          key={videoCardId}
+          // key={videoCardId}
           snippet={snippet}
           id={videoCardId}
           statistics={statistics}

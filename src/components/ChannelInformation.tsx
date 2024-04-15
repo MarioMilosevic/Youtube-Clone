@@ -1,5 +1,5 @@
 type ChannelInformationTypes = {
-  channelDetails: {
+  channelDetails?: {
     brandingSettings: {
       image: {
         bannerExternalUrl: string;
@@ -12,7 +12,10 @@ type ChannelInformationTypes = {
   };
 };
 
-const ChannelInformation = ({ channelDetails }:ChannelInformationTypes) => {
+const ChannelInformation = ({ channelDetails }: ChannelInformationTypes) => {
+  if (!channelDetails) {
+    return;
+  }
   const {
     brandingSettings: {
       image: { bannerExternalUrl },
