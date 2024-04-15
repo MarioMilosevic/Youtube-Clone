@@ -32,14 +32,15 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
   const { likeCount = "", viewCount = "" } =
     Object.keys(statistics).length !== 0 ? statistics : {};
 
-  const cardId = id.videoId || id.channelId;
+  const cardId = id.videoId || id.channelId || "9rVKos-oGnQ";
+  const route = id.channelId? "channel" : "video"
 
   const views =
     viewCount !== undefined ? parseInt(viewCount).toLocaleString() : "";
   const likes =
     likeCount !== undefined ? parseInt(likeCount).toLocaleString() : "";
+  
   const {
-    // channelId,
     channelTitle,
     publishedAt,
     title,
@@ -47,7 +48,6 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
       high: { url },
     },
   } = snippet;
-
   const styling = id.channelId
     ? "w-40 h-40 rounded-full flex items-center justify-center"
     : "w-full h-full";
@@ -55,14 +55,11 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
   const truncatedTitle = title.length > 50 ? title.slice(0, 50) + "..." : title;
   const publishedDate = generatePublishedDate(publishedAt);
   const timeDifference = formatTimeDifference(currentDate, publishedDate);
+
   return (
-    // <Link
-    //   // to={`/`}
-    //   to={`/video/${cardId === undefined ? "9rVKos-oGnQ" : cardId}`}
-    // >
     <div className="flex flex-col cursor-pointer">
       {Object.keys(statistics).length === 0 && (
-        <Link to={`/video/${cardId === undefined ? "9rVKos-oGnQ" : cardId}`}>
+        <Link to={`/${route}/${cardId === undefined ? "9rVKos-oGnQ" : cardId}`}>
           <div className="h-[200px] flex justify-center items-center">
             <img src={url} alt={title} className={styling} />
           </div>
@@ -76,14 +73,13 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
 
       {Object.keys(statistics).length > 0 && (
         <Link
-          to={`/channel/${
+          to={`/${route}/${
             cardId === undefined ? "UCH6dFAKXrH-gj1cvoHJJUgA" : cardId
           }`}
         >
           <div className="h-full w-full">
             <div className="h-full flex justify-center items-center ">
               <img src={url} alt={title} className={styling} />
-              {/* <img src={url.url} alt={title} className={styling} /> */}
             </div>
             <h2
               className="text-lg py-2"
@@ -115,4 +111,3 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
 };
 
 export default VideoCard;
-

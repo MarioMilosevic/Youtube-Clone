@@ -198,25 +198,7 @@ export type VideoSuggestedType = {
 };
 
 
-// export type VideoData = {
-//   id: {
-//     videoId?: string;
-//     channelId?: string;
-//   };
-//   snippet: {
-//     channelId: string;
-//     channelTitle: string;
-//     publishedAt: string;
-//     title: string;
-//     thumbnails: {
-//       high: {
-//         url: string;
-//       };
-//     };
-//   };
-//   statistics?: {
-//     likeCount: string;
-//     viewCount: string;
-//   };
-// };
+
+
+
 

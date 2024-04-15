@@ -62,12 +62,12 @@ const VideoInformation = () => {
           statistics={statistics}
         />
         {videoCommentItems.map((comment) => {
-          const {
+          const {id,
             snippet: {
               topLevelComment: { snippet },
             },
           } = comment;
-          return <Comment key={comment} snippet={snippet} />;
+          return <Comment key={id} snippet={snippet} />;
         })}
       </main>
       <aside>

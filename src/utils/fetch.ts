@@ -90,25 +90,26 @@ export const fetchSuggestedVideos = async (idVideo: string) => {
   }
 };
 
-// export const fetchSearchVideos = async (idVideo: string) => {
-//   const options = {
-//     method: "GET",
-//     url: "https://youtube-v31.p.rapidapi.com/captions",
-//     params: {
-//       part: "snippet",
-//       videoId: idVideo,
-//     },
-//     headers: {
-//       "X-RapidAPI-Key": "853339e32dmsh484669df916fa96p1fa47cjsn9dbd231055af",
-//       "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
-//     },
-//   };
+export const fetchChannelDetails = async (channelId: string) => {
+  const options = {
+    method: "GET",
+    url: "https://youtube-v31.p.rapidapi.com/channels",
+    params: {
+      part: "snippet,statistics",
+      id: channelId,
+    },
+    headers: {
+      "X-RapidAPI-Key": "853339e32dmsh484669df916fa96p1fa47cjsn9dbd231055af",
+      "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
+    },
+  };
 
-//   try {
-//     const response = await axios.request(options);
-//     console.log(response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  try {
+    const response = await axios.request(options);
+    console.log(response.data);
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+};
+

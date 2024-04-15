@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { fetchVideosList } from "./utils/fetch";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { VideoSearchType } from "./types/types";
 import Header from "./components/Header";
 import YoutubeExplorer from "./components/YoutubeExplorer";
 import VideoInformation from "./components/VideoInformation";
-import ChannelInformation from "./components/ChannelInformation";
-import { VideoSearchType } from "./types/types";
+import Channel from "./components/Channel";
 
 function App() {
   const [responseData, setResponseData] = useState<
     VideoSearchType[] | undefined
   >();
-  const [url, setUrl] = useState("New");
+  const [url, setUrl] = useState("kennyjo");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,10 +47,9 @@ function App() {
             <Route path="/video/:videoId" element={<VideoInformation />} />
             <Route
               path="/channel/:channelId"
-              element={<ChannelInformation />}
+              element={<Channel />}
             />{" "}
-            {/*moram provjerit
-            / : channelId*/}
+         
             {/* <Route path="*" element={<Error/> }/> */}
           </Route>
         </Routes>
