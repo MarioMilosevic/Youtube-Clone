@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
-// import { ResponseType } from "axios";
 import { VideoDetailsItems } from "../types/types";
 // import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router";
@@ -16,10 +15,11 @@ const VideoInformation = () => {
   const [videoDetails, setVideoDetails] = useState();
   const [videoComments, setVideoComments] = useState([]);
   const [suggestedVideos, setSuggestedVideos] = useState();
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
   const { videoId }: { videoId?: string } = useParams();
   console.log(videoId);
 
-  // promise all
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,11 +36,12 @@ const VideoInformation = () => {
         }
       } catch (error) {
         console.error("Error fetching data", error);
+      } finally {
+        // setIsLoading(false);
       }
     };
     fetchData();
   }, [videoId]);
-
 
   if (!videoDetails || !videoComments || !suggestedVideos) {
     return <Loading />;
@@ -52,17 +53,16 @@ const VideoInformation = () => {
   const { items: videoCommentItems } = videoComments;
   const { items: suggestedVideoItems } = suggestedVideos;
   const videoCardId = { videoId: videoId };
+  console.log(videoDetails)
+  console.log(videoComments)
+  console.log(suggestedVideos)
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
-        <VideoCard
-          // key={videoCardId}
-          snippet={snippet}
-          id={videoCardId}
-          statistics={statistics}
-        />
+        <VideoCard snippet={snippet} id={videoCardId} statistics={statistics} />
         {videoCommentItems.map((comment) => {
-          const {id,
+          const {
+            id,
             snippet: {
               topLevelComment: { snippet },
             },
@@ -73,12 +73,13 @@ const VideoInformation = () => {
       <aside>
         {suggestedVideoItems.map((item) => {
           const { id, snippet } = item;
+          console.log(snippet)
           return (
             <VideoCard
               key={id.videoId}
               id={id}
               snippet={snippet}
-              statistics={""}
+              statistics={{likeCount:"", viewCount:""}}
             />
           );
         })}

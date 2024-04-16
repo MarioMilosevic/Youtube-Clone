@@ -20,7 +20,7 @@ const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
               key={id.videoId || id.channelId}
               snippet={snippet}
               id={id}
-              statistics={""}
+              statistics={{likeCount:"", viewCount:""}}
             />
           );
         })}

@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import YoutubeExplorer from "./components/YoutubeExplorer";
 import VideoInformation from "./components/VideoInformation";
 import Channel from "./components/Channel";
+import Error from "./components/Error";
 
 function App() {
   const [responseData, setResponseData] = useState<
@@ -45,12 +46,8 @@ function App() {
               }
             />
             <Route path="/video/:videoId" element={<VideoInformation />} />
-            <Route
-              path="/channel/:channelId"
-              element={<Channel />}
-            />{" "}
-         
-            {/* <Route path="*" element={<Error/> }/> */}
+            <Route path="/channel/:channelId" element={<Channel />} />
+            <Route path="*" element={<Error />} />
           </Route>
         </Routes>
       </BrowserRouter>
