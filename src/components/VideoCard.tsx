@@ -1,4 +1,3 @@
-import slika from "../assets/probno.jpg"
 import { SlLike, SlDislike } from "react-icons/sl";
 import { BsDownload } from "react-icons/bs";
 import { generatePublishedDate } from "../utils/HelperFunctions";
@@ -41,12 +40,7 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
   const views = viewCount !== "" ? parseInt(viewCount).toLocaleString() : "";
   const likes = likeCount !== "" ? parseInt(likeCount).toLocaleString() : "";
 
-  const {
-    channelTitle,
-    publishedAt,
-    title,
-    thumbnails: { default: defaultUrl, high },
-  } = snippet;
+  const { channelTitle, publishedAt, title, thumbnails } = snippet;
 
   const styling = id.channelId
     ? "w-40 h-40 rounded-full flex items-center justify-center"
@@ -64,8 +58,11 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
         <Link to={`/${route}/${cardId === undefined ? "9rVKos-oGnQ" : cardId}`}>
           <div className="h-[200px] flex justify-center items-center">
             <img
-              src={slika}
-              // src={high.url || defaultUrl.url}
+              src={
+                thumbnails?.high?.url
+                  ? thumbnails.high.url
+                  : "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+              }
               alt={title}
               className={styling}
             />
@@ -87,8 +84,11 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
           <div className="h-full w-full">
             <div className="h-full flex justify-center items-center ">
               <img
-                src={slika}
-                // src={high.url || defaultUrl.url}
+                src={
+                  thumbnails?.high?.url
+                    ? thumbnails.high.url
+                    : "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+                }
                 alt={title}
                 className={styling}
               />

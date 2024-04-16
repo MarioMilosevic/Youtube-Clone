@@ -3,16 +3,9 @@ import {
   generatePublishedDate,
   currentDate,
 } from "../utils/HelperFunctions";
-type CommentTypes = {
-  snippet: {
-    authorProfileImageUrl: string;
-    authorDisplayName: string;
-    publishedAt: string;
-    textDisplay: string;
-  };
-};
+import { CommentSnippet } from "../types/types";
 
-const Comment = ({ snippet }: CommentTypes) => {
+const Comment = ({ snippet }: CommentSnippet) => {
   const { authorDisplayName, authorProfileImageUrl, publishedAt, textDisplay } =
     snippet;
 

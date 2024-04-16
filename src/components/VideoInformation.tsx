@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
-import { VideoDetailsItems } from "../types/types";
+import { CommentItem } from "../types/types";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router";
 import Comment from "./Comment";
@@ -15,9 +15,7 @@ const VideoInformation = () => {
   const [videoDetails, setVideoDetails] = useState();
   const [videoComments, setVideoComments] = useState([]);
   const [suggestedVideos, setSuggestedVideos] = useState();
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
   const { videoId }: { videoId?: string } = useParams();
-  console.log(videoId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,8 +32,6 @@ const VideoInformation = () => {
         }
       } catch (error) {
         console.error("Error fetching data", error);
-      } finally {
-        // setIsLoading(false);
       }
     };
     fetchData();
@@ -44,21 +40,14 @@ const VideoInformation = () => {
   if (!videoDetails || !videoComments || !suggestedVideos) {
     return <Loading />;
   }
-  const { items: videoDetailsItems = [] }: { items: VideoDetailsItems[] } =
-    videoDetails || {};
-  const [{ snippet, statistics }] = videoDetailsItems;
-
   const { items: videoCommentItems } = videoComments;
   const { items: suggestedVideoItems } = suggestedVideos;
-  const videoCardId = { videoId: videoId };
-  console.log(videoDetails);
-  console.log(videoComments);
-  console.log(suggestedVideos);
+ 
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
-      <main className="w-full pb-8">
-        <ReactPlayer url={`https://www.youtube.com/watch?v=${videoId}`} width="100%" height="640px" controls/>
-        {videoCommentItems.map((comment) => {
+      <main className="w-full ">
+        <ReactPlayer url={`https://www.youtube.com/watch?v=${videoId}`} width="100%" height="640px" className="react-player" controls/>
+        {videoCommentItems.map((comment:CommentItem) => {
           const {
             id,
             snippet: {
@@ -87,44 +76,3 @@ const VideoInformation = () => {
 
 export default VideoInformation;
 
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       if (videoId) {
-//         const response = await fetchVideoDetails(videoId);
-//         setVideoDetails(response);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data", error);
-//     }
-//   };
-//   fetchData();
-// }, [videoId]);
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       if (videoId) {
-//         const response = await fetchVideoComments(videoId);
-//         setVideoComments(response);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data", error);
-//     }
-//   };
-//   fetchData();
-// }, [videoId]);
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       if (videoId) {
-//         const response = await fetchSuggestedVideos(videoId);
-//         setSuggestedVideos(response);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data", error);
-//     }
-//   };
-//   fetchData();
-// }, [videoId]);

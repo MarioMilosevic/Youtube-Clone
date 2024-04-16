@@ -1,15 +1,23 @@
 import Categories from "./Categories";
 import Videos from "./Videos";
-import { useState } from "react";
 import Wrapper from "./Wrapper";
+import { useState } from "react";
 import { VideoSearchType } from "../types/types";
+import { InitialCategoriesType } from "../utils/initialState";
 
-type YoutubeExplorerTypes = {
-  updateUrl: (input:string) => void;
+type HomePageTypes = {
+  updateUrl: (input: string) => void;
   responseData: VideoSearchType[];
+  icons: InitialCategoriesType[];
+  updateIcons: (icons: InitialCategoriesType[]) => void;
 };
 
-const YoutubeExplorer = ({ responseData, updateUrl }: YoutubeExplorerTypes) => {
+const HomePage = ({
+  icons,
+  updateIcons,
+  responseData,
+  updateUrl,
+}: HomePageTypes) => {
   const [selectedCategory, setSelectedCategory] = useState("New");
 
   const updateSelectedCategory = (category: string) => {
@@ -20,6 +28,8 @@ const YoutubeExplorer = ({ responseData, updateUrl }: YoutubeExplorerTypes) => {
     <>
       <Wrapper>
         <Categories
+          icons={icons}
+          updateIcons={updateIcons}
           updateSelectedCategory={updateSelectedCategory}
           updateUrl={updateUrl}
         />
@@ -32,4 +42,4 @@ const YoutubeExplorer = ({ responseData, updateUrl }: YoutubeExplorerTypes) => {
   );
 };
 
-export default YoutubeExplorer;
+export default HomePage;

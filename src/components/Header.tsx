@@ -1,21 +1,24 @@
 import { useState } from "react";
 import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
+import { initialCategoriesState, InitialCategoriesType } from "../utils/initialState";
 
 type HeaderTypes = {
+  updateIcons: (icons:InitialCategoriesType[]) => void;
   updateUrl: (input: string) => void;
 };
 
-const Header = ({ updateUrl }: HeaderTypes) => {
+const Header = ({ updateIcons,updateUrl }: HeaderTypes) => {
   const [search, setSearch] = useState("");
 
   const searchHandler = (e: React.MouseEvent<SVGSVGElement, MouseEvent> | React.FormEvent) => {
     e.preventDefault();
     updateUrl(search);
     setSearch("");
+    updateIcons(initialCategoriesState)
   };
 
-  const goToYoutubeExplorer = () => {
+  const goToHomePage = () => {
     updateUrl("New")
   }
 
@@ -25,7 +28,7 @@ const Header = ({ updateUrl }: HeaderTypes) => {
         <Link to={"/"}>
           <div
             className="flex items-center cursor-pointer"
-            onClick={goToYoutubeExplorer}
+            onClick={goToHomePage}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,14 +85,3 @@ const Header = ({ updateUrl }: HeaderTypes) => {
 
 export default Header;
 
-
-// const Header = () => {
-//   return (
-//     <div>
-//       <h1>Hello</h1>
-//       <Outlet />
-//     </div>
-//   );
-// };
-
-// export default Header;

@@ -1,115 +1,19 @@
 import { IonIcon } from "@ionic/react";
-import {
-  homeOutline,
-  flameOutline,
-  codeSlashOutline,
-  logoJavascript,
-  logoReact,
-  musicalNotesOutline,
-  schoolOutline,
-  discOutline,
-  filmOutline,
-  gameControllerOutline,
-  pulseOutline,
-  footballOutline,
-  sparklesOutline,
-  diamondOutline,
-} from "ionicons/icons";
-import { useState } from "react";
+import { InitialCategoriesType } from "../utils/initialState";
 
 type CategoriesType = {
   updateSelectedCategory: (category: string) => void;
   updateUrl: (input: string) => void;
+  icons: InitialCategoriesType[];
+  updateIcons: (icons: InitialCategoriesType[]) => void;
 };
 
-const Categories = ({ updateSelectedCategory, updateUrl }: CategoriesType) => {
-  const [icons, setIcons] = useState([
-    {
-      id: crypto.randomUUID(),
-      isActive: true,
-      icon: homeOutline,
-      name: "Home",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: flameOutline,
-      name: "Trending",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: codeSlashOutline,
-      name: "Coding",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: logoJavascript,
-      name: "JavaScript",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: logoReact,
-      name: "ReactJS",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: musicalNotesOutline,
-      name: "Music",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: schoolOutline,
-      name: "Education",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: discOutline,
-      name: "Podcast",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: filmOutline,
-      name: "Movie",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: gameControllerOutline,
-      name: "Gaming",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: pulseOutline,
-      name: "Live",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: footballOutline,
-      name: "Sport",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: sparklesOutline,
-      name: "Fashion",
-    },
-    {
-      id: crypto.randomUUID(),
-      isActive: false,
-      icon: diamondOutline,
-      name: "Beauty",
-    },
-  ]);
-
+const Categories = ({
+  updateIcons,
+  icons,
+  updateSelectedCategory,
+  updateUrl,
+}: CategoriesType) => {
   const isActive = "bg-[#ff0000] custom-white rounded-full ";
   const baseClass =
     "flex items-center gap-3 custom-color  text-base hover:bg-[#ff0000] hover:text-white hover:rounded-full px-2";
@@ -118,12 +22,14 @@ const Categories = ({ updateSelectedCategory, updateUrl }: CategoriesType) => {
     if (name === "Home") {
       name = "New";
     }
+
     const updatedIcons = icons.map((icon) =>
       icon.id === id
         ? { ...icon, isActive: true }
         : { ...icon, isActive: false }
     );
-    setIcons(updatedIcons);
+
+    updateIcons(updatedIcons);
     updateSelectedCategory(name);
     updateUrl(name);
   };

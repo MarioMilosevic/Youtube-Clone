@@ -197,8 +197,23 @@ export type VideoSuggestedType = {
   }[];
 };
 
+export type CommentItem = {
+  id: string;
+  snippet: {
+    topLevelComment: {
+      snippet:CommentSnippet
+    }
+  }
+} 
 
-
+export type CommentSnippet = {
+  snippet: {
+    authorProfileImageUrl: string;
+    authorDisplayName: string;
+    publishedAt: string;
+    textDisplay: string;
+  };
+};
 
 
 
