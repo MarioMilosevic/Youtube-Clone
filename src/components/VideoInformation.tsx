@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
 import { VideoDetailsItems } from "../types/types";
-// import ReactPlayer from "react-player/youtube";
+import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router";
 import Comment from "./Comment";
 import {
@@ -18,8 +18,6 @@ const VideoInformation = () => {
   // const [isLoading, setIsLoading] = useState<boolean>(true);
   const { videoId }: { videoId?: string } = useParams();
   console.log(videoId);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,13 +51,13 @@ const VideoInformation = () => {
   const { items: videoCommentItems } = videoComments;
   const { items: suggestedVideoItems } = suggestedVideos;
   const videoCardId = { videoId: videoId };
-  console.log(videoDetails)
-  console.log(videoComments)
-  console.log(suggestedVideos)
+  console.log(videoDetails);
+  console.log(videoComments);
+  console.log(suggestedVideos);
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full pb-8">
-        <VideoCard snippet={snippet} id={videoCardId} statistics={statistics} />
+        <ReactPlayer url={`https://www.youtube.com/watch?v=${videoId}`} width="100%" height="640px" controls/>
         {videoCommentItems.map((comment) => {
           const {
             id,
@@ -73,13 +71,12 @@ const VideoInformation = () => {
       <aside>
         {suggestedVideoItems.map((item) => {
           const { id, snippet } = item;
-          console.log(snippet)
           return (
             <VideoCard
               key={id.videoId}
               id={id}
               snippet={snippet}
-              statistics={{likeCount:"", viewCount:""}}
+              statistics={{ likeCount: "", viewCount: "" }}
             />
           );
         })}

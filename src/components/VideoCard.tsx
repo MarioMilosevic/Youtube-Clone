@@ -1,3 +1,4 @@
+import slika from "../assets/probno.jpg"
 import { SlLike, SlDislike } from "react-icons/sl";
 import { BsDownload } from "react-icons/bs";
 import { generatePublishedDate } from "../utils/HelperFunctions";
@@ -63,7 +64,8 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
         <Link to={`/${route}/${cardId === undefined ? "9rVKos-oGnQ" : cardId}`}>
           <div className="h-[200px] flex justify-center items-center">
             <img
-              src={high.url || defaultUrl.url}
+              src={slika}
+              // src={high.url || defaultUrl.url}
               alt={title}
               className={styling}
             />
@@ -85,7 +87,8 @@ const VideoCard = ({ snippet, id, statistics }: VideoCardType) => {
           <div className="h-full w-full">
             <div className="h-full flex justify-center items-center ">
               <img
-                src={high.url || defaultUrl.url}
+                src={slika}
+                // src={high.url || defaultUrl.url}
                 alt={title}
                 className={styling}
               />

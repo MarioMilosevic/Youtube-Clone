@@ -12,7 +12,7 @@ function App() {
   const [responseData, setResponseData] = useState<
     VideoSearchType[] | undefined
   >();
-  const [url, setUrl] = useState("kennyjo");
+  const [url, setUrl] = useState("New");
 
   useEffect(() => {
     const fetchData = async () => {
