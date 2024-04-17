@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchVideosList } from "./utils/fetch";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { VideoSearchType } from "./types/types";
+import { ResponseTypeData } from "./types/types";
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import VideoInformation from "./components/VideoInformation";
@@ -14,7 +14,7 @@ import {
 
 function App() {
   const [responseData, setResponseData] = useState<
-    VideoSearchType[] | undefined
+    ResponseTypeData | undefined
   >();
   const [url, setUrl] = useState("New");
   const [icons, setIcons] = useState(initialCategoriesState);

@@ -2,12 +2,12 @@ import Categories from "./Categories";
 import Videos from "./Videos";
 import Wrapper from "./Wrapper";
 import { useState } from "react";
-import { VideoSearchType } from "../types/types";
+import { ResponseTypeData } from "../types/types";
 import { InitialCategoriesType } from "../utils/initialState";
 
 type HomePageTypes = {
   updateUrl: (input: string) => void;
-  responseData: VideoSearchType[];
+  responseData: ResponseTypeData;
   icons: InitialCategoriesType[];
   updateIcons: (icons: InitialCategoriesType[]) => void;
 };
