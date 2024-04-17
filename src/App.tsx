@@ -39,11 +39,6 @@ function App() {
     setIcons(icons);
   };
 
-  // const resetCategories = () => {
-  //   setIcons(initialCategoriesState)
-  // }
-  // u Headeru moram da proslijedim funkciju
-  // u HomePageu moram da proslijedim ikone i funkciju koja ce da ih apdejtuje
   return (
     <>
       <BrowserRouter>

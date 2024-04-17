@@ -50,15 +50,8 @@ const Channel = () => {
           <main className="grid grid-cols-4 w-[1300px] mx-auto gap-4 pt-4">
             {channelVideos?.map((video) => {
               const { id, snippet } = video;
-              console.log(id, snippet);
-              return (
-                <VideoCard
-                  key={id.videoId}
-                  id={id}
-                  snippet={snippet}
-                  statistics={{likeCount:"", viewCount:""}}
-                />
-              );
+              const { videoId } = id;
+              return <VideoCard key={videoId} id={id} snippet={snippet} />;
             })}
           </main>
         </>
@@ -68,40 +61,3 @@ const Channel = () => {
 };
 
 export default Channel;
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       if (channelId) {
-//         const response = await fetchChannelDetails(channelId);
-//         const {
-//           items: [firstObject],
-//         } = response;
-//         setChannelDetails(firstObject);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data", error);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-//   fetchData();
-// }, [channelId]);
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       if (channelId) {
-//         const response = await fetchChannelVideos(channelId);
-//         const { items } = response;
-//         console.log("ovo je response", items);
-//         setChannelVideos(items);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data", error);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-//   fetchData();
-// }, [channelId]);

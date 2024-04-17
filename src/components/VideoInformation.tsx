@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import VideoCard from "./VideoCard";
-import { CommentItem } from "../types/types";
-import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router";
-import Comment from "./Comment";
 import {
   fetchVideoComments,
   fetchVideoDetails,
   fetchSuggestedVideos,
 } from "../utils/fetch";
+import { CommentItem } from "../types/types";
+import VideoCard from "./VideoCard";
+import Comment from "./Comment";
 import Loading from "./Loading";
+import ClickedVideo from "./ClickedVideo";
+import { VideoCommentsType ,VideoSuggestedType, VideoDetailsType } from "../types/types";
 
 const VideoInformation = () => {
-  const [videoDetails, setVideoDetails] = useState();
-  const [videoComments, setVideoComments] = useState([]);
-  const [suggestedVideos, setSuggestedVideos] = useState();
+  const [videoDetails, setVideoDetails] = useState<VideoDetailsType>();
+  const [videoComments, setVideoComments] = useState<VideoCommentsType>();
+  const [suggestedVideos, setSuggestedVideos] = useState<VideoSuggestedType>();
   const { videoId }: { videoId?: string } = useParams();
 
   useEffect(() => {
@@ -40,14 +41,15 @@ const VideoInformation = () => {
   if (!videoDetails || !videoComments || !suggestedVideos) {
     return <Loading />;
   }
-  const { items: videoCommentItems } = videoComments;
-  const { items: suggestedVideoItems } = suggestedVideos;
- 
+  const { items } = videoDetails;
+  const [firstItem] = items;
+  const { statistics, snippet } = firstItem;
+
   return (
     <div className="w-[1300px] mx-auto flex gap-4">
       <main className="w-full ">
-        <ReactPlayer url={`https://www.youtube.com/watch?v=${videoId}`} width="100%" height="640px" className="react-player" controls/>
-        {videoCommentItems.map((comment:CommentItem) => {
+        <ClickedVideo videoId={videoId} statistics={statistics} snippet={snippet} />
+        {videoComments.items.map((comment: CommentItem) => {
           const {
             id,
             snippet: {
@@ -58,16 +60,10 @@ const VideoInformation = () => {
         })}
       </main>
       <aside>
-        {suggestedVideoItems.map((item) => {
+        {suggestedVideos.items.map((item) => {
           const { id, snippet } = item;
-          return (
-            <VideoCard
-              key={id.videoId}
-              id={id}
-              snippet={snippet}
-              statistics={{ likeCount: "", viewCount: "" }}
-            />
-          );
+          const {videoId} = id
+          return <VideoCard key={videoId} id={id} snippet={snippet} />;
         })}
       </aside>
     </div>
@@ -75,4 +71,3 @@ const VideoInformation = () => {
 };
 
 export default VideoInformation;
-

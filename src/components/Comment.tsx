@@ -17,7 +17,7 @@ const Comment = ({ snippet }: CommentSnippet) => {
       <div className="w-12 h-12 rounded-full">
         <img
           src={authorProfileImageUrl}
-          alt="Profile img"
+          alt={textDisplay}
           className="rounded-full w-12 h-12"
         />
       </div>

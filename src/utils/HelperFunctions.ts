@@ -44,3 +44,8 @@ export const generatePublishedDate = (publishTime: string) => {
   const publishedDate = new Date(publishTime?.substring(0, 10));
   return publishedDate;
 };
+
+export const formatString = (input: string) => {
+  const result = parseInt(input).toLocaleString();
+  return result;
+};

@@ -1,9 +1,9 @@
 import VideoCard from "./VideoCard";
-import { VideoSearchType } from "../types/types";
+import { ResponseTypeData } from "../types/types";
 
 type ContentTypes = {
   selectedCategory: string;
-  responseData: VideoSearchType[];
+  responseData: ResponseTypeData;
 };
 
 const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
@@ -14,13 +14,12 @@ const Videos = ({ selectedCategory, responseData }: ContentTypes) => {
       </p>
       <main className="pt-12 grid gap-4 grid-cols-4">
         {responseData.map((el) => {
-          const { id, snippet } = el ;
+          const { id, snippet } = el;
           return (
             <VideoCard
               key={id.videoId || id.channelId}
               snippet={snippet}
               id={id}
-              statistics={{likeCount:"", viewCount:""}}
             />
           );
         })}

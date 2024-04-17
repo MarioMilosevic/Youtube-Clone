@@ -1,4 +1,4 @@
-export type VideoSearchType = {
+export type VideoSearchType = [{
   kind: string;
   nextPageToken: string;
   regionCode: string;
@@ -32,8 +32,43 @@ export type VideoSearchType = {
       liveBroadcastContent: string;
       publishedTime: string;
     };
-  }[];
-}[];
+  };
+}];
+
+export type ResponseTypeData = {
+  id: {
+    kind: string;
+    videoId: string;
+    channelId?: string;
+  },
+  kind: string;
+  snippet: {
+    channelId: string;
+    channelTitle: string;
+    description: string;
+    liveBroadcastContent: string;
+    publihTime: string;
+    publishedAt: string;
+    thumbnails: {
+      default: {
+        url:string;
+        width:number;
+        height:number
+      },
+      high: {
+        url:string;
+        width:number;
+        height:number
+      },
+      medium: {
+        url:string;
+        width:number;
+        height:number
+      },
+    },
+    title: string;
+  }
+}[]
 
 export type VideoDetailsType = {
   kind: string;
@@ -157,7 +192,10 @@ export type VideoSuggestedType = {
   };
   items: {
     kind: string;
-    id: string;
+    id: {
+      videoId?: string;
+      channelId?: string
+    };
     snippet: {
       publishedAt: string;
       channelId: string;
@@ -201,10 +239,15 @@ export type CommentItem = {
   id: string;
   snippet: {
     topLevelComment: {
-      snippet:CommentSnippet
-    }
-  }
-} 
+      snippet: {
+        authorProfileImageUrl: string;
+        authorDisplayName: string;
+        publishedAt: string;
+        textDisplay: string;
+      };
+    };
+  };
+};
 
 export type CommentSnippet = {
   snippet: {
@@ -214,6 +257,3 @@ export type CommentSnippet = {
     textDisplay: string;
   };
 };
-
-
-
