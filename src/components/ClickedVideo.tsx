@@ -11,13 +11,13 @@ type ClickedVideoType = {
     likeCount: string;
   };
   snippet: {
-    title:string
-  }
+    title: string;
+  };
 };
 
-const ClickedVideo = ({ videoId, statistics, snippet }:ClickedVideoType) => {
+const ClickedVideo = ({ videoId, statistics, snippet }: ClickedVideoType) => {
   const { likeCount, viewCount } = statistics;
-  const {title } = snippet
+  const { title } = snippet;
   return (
     <div className="flex flex-col cursor-pointer">
       <div className="h-full w-full">
@@ -31,8 +31,7 @@ const ClickedVideo = ({ videoId, statistics, snippet }:ClickedVideoType) => {
         <h2
           className="text-lg py-2"
           dangerouslySetInnerHTML={{ __html: title }}
-        >
-        </h2>
+        ></h2>
         <div className="flex justify-between pb-6">
           <span>{formatString(viewCount)} views</span>
           <div className="flex gap-8">
